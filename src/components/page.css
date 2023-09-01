@@ -1,85 +1,127 @@
-.basepage {
-    display: flex;
-    flex-direction: column;
-    background-color: #09182E;
-    width: 300px;
-    margin: auto;
-    text-align: center;
-    margin-top: 100px;
-}
-
 @font-face {
-    font-family: 'EliceDigitalBaeum-Bd';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_elice@1.0/EliceDigitalBaeum-Bd.woff2') format('woff2');
-    font-weight: normal;
-    font-style: normal;
+  font-family: "EliceDigitalBaeum-Bd";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_elice@1.0/EliceDigitalBaeum-Bd.woff2")
+    format("woff2");
+  font-weight: normal;
+  font-style: normal;
 }
-
-  
-
+@font-face {
+  font-family: "GmarketSansMedium";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff")
+    format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
 .startPage {
-    display: flex;
-    flex-direction: column;
-    background: #09182E;
-    width: 390px;
-    height: 844px;
-    margin: 0 auto;
-    align-items: center;
-    text-align: center;
+  display: flex;
+  flex-direction: column;
+  background: #09182e;
+  width: 390px;
+  height: 844px;
+  margin: 0 auto;
+  align-items: center;
+  text-align: center;
 
-    color: #65FCDE;
-    text-align: center;
-    font-family: EliceDigitalBaeumOTF;
-    font-size: 35px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
+  color: #ffffff;
+  text-align: center;
+  font-family: EliceDigitalBaeumOTF;
+  font-size: 35px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+@media all and (max-width: 1024px) {
+  /*브라우저 창 width가 1024px보다 작아지는 순간부터 적용
+        태블릿*/
+  .startPage {
+    width: 800px;
+  }
+}
+@media all and (max-width: 768px) {
+  /*브라우저 창 width가 768px보다 작아지는 순간부터 적용
+        모바일*/
+  .startPage {
+    width: 360px;
+  }
+}
+@media all and (min-width: 768px) {
+  /*브라우저 창 width가 768px보다 커지는 순간부터 적용
+        태블릿*/
+  .startPage {
+    width: 900px;
+  }
+}
+@media all and (min-width: 1024px) {
+  /*브라우저 창 width가 1024px보다 커지는 순간부터 적용
+        데스크탑*/
+  .startPage {
+    width: 400px;
+  }
 }
 
 .InputPage {
-    display: flex;
-    align-items: center;
-    background: #09182E;
-    width: 300px;
-    margin: auto;
-    text-align: center;
-    justify-content: center;
-    margin-top: 100px;
+  display: flex;
+  align-items: center;
+  background: #09182e;
+  width: 300px;
+  margin: auto;
+  text-align: center;
+  justify-content: center;
+  margin-top: 100px;
 }
-
+/* 
 .CheckPage {
-    display: flex;
-    align-items: center;
-    background: #09182E;
-    width: 390px;
-    margin: 0 auto;
-    text-align: center;
-    margin-top: 100px;
-    justify-content: center;
-    flex-wrap: wrap;
+  display: flex;
+  align-items: center;
+  background: #09182e;
+  width: 390px;
+  margin: 0 auto;
+  text-align: center;
+  margin-top: 100px;
+  justify-content: center;
+  flex-wrap: wrap;
 
-    color: #000518;
-    font-family: Inter;
-    font-size: 20px;
-    font-style: normal;
-    font-weight: 600;
-    line-height: normal;
+  color: #000518;
+  font-family: Inter;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+} */
+.LoadingPage {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #09182e;
+  width: 390px;
+  height: 844px;
+  gap: 50px;
+  margin: auto;
+
+  color: #fff;
+  text-align: center;
+  font-family: GmarketSansMedium;
+  font-size: 33px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
 }
 .EndPage {
-    display: flex;
-    flex-direction: column;
-    background: #09182E;
-    width: 390px;
-    margin: auto;
-    text-align: center;
-    align-items: center;
-    justify-content: center;
-    position: relative;
+  display: flex;
+  flex-direction: column;
+  background: #09182e;
+  width: 390px;
+  margin: auto;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  position: relative;
 
-    color: #000518;
-    font-family: Inter;
-    font-size: 35px;
-    font-style: normal;
-    font-weight: 600;
-    line-height: normal;
+  color: #000518;
+  font-family: Inter;
+  font-size: 35px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
 }

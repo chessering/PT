@@ -1,42 +1,56 @@
-import "../components/button.js";
-import "./StartInput.js";
-import "./S_InputStartPage.js";
-import "../components/page.css";
-import { useNavigate } from "react-router-dom";
+import "../components/CheckPage.css";
+import { useNavigate, useLocation } from "react-router-dom";
 
+function StartCheck() {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const name = location.state.name;
+  const startLat = location.state.startLat;
+  const startLon = location.state.startLon;
 
-function InputCheck() {
-
-    const navigate = useNavigate();
-
-    return(
-        <div className="CheckPage">
-            <div style={{
-                display:"flex",
-                flexDirection: "row",
-                alignItems: "center",
-            }}>
-                <svg xmlns="http://www.w3.org/2000/svg" width="29" height="37" viewBox="0 0 29 37" fill="none">
-                    <path fill-rule="evenodd" clip-rule="evenodd" d="M14.5 37C14.5 37 29 23.2843 29 15C29 6.71573 23.2843 0 15 0C6.71573 0 0 6.71573 0 15C0 23.2843 14.5 37 14.5 37ZM14.5 20C17.5376 20 20 17.5375 20 14.5C20 11.4624 17.5376 8.99997 14.5 8.99997C11.4624 8.99997 9 11.4624 9 14.5C9 17.5375 11.4624 20 14.5 20Z" fill="#000518"/>
-                </svg>
-                <div className="btn" id="SearchBtn">
-                    <div style={{
-                        textIndent: '1em',
-                        display:"flex",
-                        alignItems: "center",
-                    }}>경희대학교 국제캠퍼스</div>
-                </div>
-            </div>
-
-
-            <h2 style={{textAlign: 'center', marginTop: '10%'}}>입력한 정보가 맞나요?</h2>
-
-            <div className="btn" id='CheckBtn' onClick={() => navigate("/DestInput")}>예</div>
-            <div className="btn" id='CheckBtn' onClick={() => navigate("/StartInput")}>아니오</div>
-
-            
+  return (
+    <div className="CheckPage">
+      <div className="InputAndButton">
+        <svg
+          className="Mark"
+          xmlns="http://www.w3.org/2000/svg"
+          width="32"
+          height="32"
+          viewBox="0 0 32 32"
+          fill="none"
+        >
+          <path
+            d="M20.5 16C20.5 18.4853 18.4853 20.5 16 20.5C13.5147 20.5 11.5 18.4853 11.5 16C11.5 13.5147 13.5147 11.5 16 11.5C18.4853 11.5 20.5 13.5147 20.5 16ZM16 23.5C20.1421 23.5 23.5 20.1421 23.5 16C23.5 11.8579 20.1421 8.5 16 8.5C11.8579 8.5 8.5 11.8579 8.5 16C8.5 20.1421 11.8579 23.5 16 23.5ZM30.5 16C30.5 24.0081 24.0081 30.5 16 30.5C7.99187 30.5 1.5 24.0081 1.5 16C1.5 7.99187 7.99187 1.5 16 1.5C24.0081 1.5 30.5 7.99187 30.5 16Z"
+            stroke="white"
+            strokeWidth="3"
+          />
+        </svg>
+        <div className="Place">
+          <div>{name}</div>
         </div>
-    );
+      </div>
+
+      <h2>입력한 정보가 맞나요?</h2>
+      <div className="Btns">
+        <div
+          className="YesBtn"
+          onClick={() =>
+            navigate("/DestInput", {
+              state: {
+                startLat: startLat,
+                startLon: startLon,
+              },
+            })
+          }
+        >
+          네
+        </div>
+        <div className="NoBtn" onClick={() => navigate("/SearchArea")}>
+          아니요
+        </div>
+      </div>
+    </div>
+  );
 }
 
-export default InputCheck;
+export default StartCheck;

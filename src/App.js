@@ -27,27 +27,27 @@ function App() {
     <div>
       <BrowserRouter>
         <Routes>
-          <Route path="/Start" element={<Start/>}/>
-          <Route path="/Intro1" element={<Intro1/>}/>
-          <Route path="/Intro2" element={<Intro2/>}/>
-          <Route path="/Intro3" element={<Intro3/>}/>
-          <Route path="/Intro4" element={<Intro4/>}/>
-          <Route path="/health" element={<Practice/>}/>
-          <Route path="/FindRoute" element={<FindRoute/>}/>
-          <Route path="/ChooseVehicle" element={<ChooseVehicle/>}/>
-          <Route path="/ChooseInput" element={<ChooseInput/>}/>
+          <Route path="/" element={<Start />} />
+          <Route path="/Intro1" element={<Intro1 />} />
+          <Route path="/Intro2" element={<Intro2 />} />
+          <Route path="/Intro3" element={<Intro3 />} />
+          <Route path="/Intro4" element={<Intro4 />} />
+          <Route path="/health" element={<Practice />} />
+          <Route path="/FindRoute" element={<FindRoute />} />
+          <Route path="/ChooseVehicle" element={<ChooseVehicle />} />
+          <Route path="/ChooseInput" element={<ChooseInput />} />
           <Route path="/StartInput" element={<InputText />} />
           <Route path="/StartCheck" element={<InputCheck />} />
           <Route path="/DestInput" element={<OutputText />} />
-          <Route path= '/DestCheck' element = {<OutputCheck/>}/>
-          <Route path= '/OptimalWalk' element = {<OptimalWalk/>}/>
-          <Route path= '/OptimalTransport' element = {<OptimalTransport/>}/>
+          <Route path="/DestCheck" element={<OutputCheck />} />
+          <Route path="/OptimalWalk" element={<OptimalWalk />} />
+          <Route path="/OptimalTransport" element={<OptimalTransport />} />
           <Route path="/ReNavigate" element={<ReNavigate />} />
           <Route path="/ReNavigateCheck" element={<ReNavigateCheck />} />
           <Route path="/Map" element={<Map />} />
-          <Route path='/Photo' element={<Photo />}/>
-          <Route path='/SearchArea' element={<SearchArea />}/>
-          <Route path='/Report' element={<Report/>}/>
+          <Route path="/Photo" element={<Photo />} />
+          <Route path="/SearchArea" element={<SearchArea />} />
+          <Route path="/Report" element={<Report />} />
         </Routes>
       </BrowserRouter>
     </div>
