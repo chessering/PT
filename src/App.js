@@ -13,9 +13,9 @@ import ReNavigateCheck from "./pages/ReNavigateCheck";
 import ReNavigate from "./pages/ReNavigate";
 import SearchArea from "./pages/SearchArea";
 import Map from "./pages/Map";
-import Photo from "./pages/Photo";
 import Practice from "./pages/Practice";
 import Report from "./pages/Report";
+import ReportComplete from "./pages/ReportComplete";
 import Start from "./pages/StartPage";
 import Intro1 from "./pages/Intro1";
 import Intro2 from "./pages/Intro2";
@@ -45,9 +45,9 @@ function App() {
           <Route path="/ReNavigate" element={<ReNavigate />} />
           <Route path="/ReNavigateCheck" element={<ReNavigateCheck />} />
           <Route path="/Map" element={<Map />} />
-          <Route path="/Photo" element={<Photo />} />
           <Route path="/SearchArea" element={<SearchArea />} />
           <Route path="/Report" element={<Report />} />
+          <Route path="/ReportComplete" element={<ReportComplete />} />
         </Routes>
       </BrowserRouter>
     </div>

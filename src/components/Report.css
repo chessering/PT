@@ -1,48 +1,80 @@
 .Report {
-    display: flex;
-    flex-direction: column;
-    width: 300px;
-    margin: auto;
-    text-align: center;
-    margin-top: 100px;
-}
+  display: flex;
+  flex-direction: column;
+  width: 390px;
+  height: 844px;
+  text-align: center;
 
-.Report .Camera {
-    width: 314px;
-    height: 317px;
-    flex-shrink: 0;
-    border-radius: 23px;
-    border-color: #e1ff68;
-    background: #e1ff68;
-    box-shadow: 5px 7px 20px 1px rgba(0, 0, 0, 0.25);
-  
-    color: #000518;
-    font-family: Inter;
-    font-size: 35px;
-    font-style: normal;
-    font-weight: 600;
-    line-height: normal;
+  background: #09182e;
+}
+@media all and (max-width: 1024px) {
+  /*브라우저 창 width가 1024px보다 작아지는 순간부터 적용
+        태블릿*/
+  .Report {
+    width: 800px;
   }
-  
-.Report .Gallary {
-    width: 314px;
-    height: 317px;
-    flex-shrink: 0;
-    border-radius: 23px;
-    border-color: #e1ff68;
-    background: #e1ff68;
-    box-shadow: 5px 7px 20px 1px rgba(0, 0, 0, 0.25);
-  
-    color: #000518;
-    font-family: Inter;
-    font-size: 35px;
-    font-style: normal;
-    font-weight: 600;
-    line-height: normal;
+}
+@media all and (max-width: 768px) {
+  /*브라우저 창 width가 768px보다 작아지는 순간부터 적용
+        모바일*/
+  .Report {
+    width: 360px;
+  }
+}
+@media all and (min-width: 768px) {
+  /*브라우저 창 width가 768px보다 커지는 순간부터 적용
+        태블릿*/
+  .Report {
+    width: 900px;
+  }
+}
+@media all and (min-width: 1024px) {
+  /*브라우저 창 width가 1024px보다 커지는 순간부터 적용
+        데스크탑*/
+  .Report {
+    width: 400px;
+  }
 }
 
-.Report
-input:focus,
+.Report .Buttons {
+  margin-top: 70px;
+}
+.Report .Buttons .Camera {
+  width: 314px;
+  height: 317px;
+  flex-shrink: 0;
+  border-radius: 23px;
+  border-color: #ffffff;
+  background: #ffffff;
+
+  color: #fc6565;
+  text-align: center;
+  font-family: GmarketSansMedium;
+  font-size: 35px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+}
+
+.Report .Buttons .Gallery {
+  width: 314px;
+  height: 317px;
+  flex-shrink: 0;
+  border-radius: 23px;
+  border-color: #ffffff;
+  background: #ffffff;
+  margin-top: 70px;
+
+  color: #172a46;
+  text-align: center;
+  font-family: GmarketSansMedium;
+  font-size: 35px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+}
+
+.Report input:focus,
 input:active,
 button:focus,
 button:active {

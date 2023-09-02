@@ -7,7 +7,7 @@ function ChooseInput() {
   return (
     <div className="ChooseInput">
       <div className="Buttons">
-        <button className="StartPointBtn">
+        <button className="StartPointBtn" onClick={() => navigate("/Map")}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="150"
