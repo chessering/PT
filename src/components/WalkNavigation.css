@@ -1,4 +1,4 @@
-.NavigateContent {
+.WalkNavigation {
   display: flex;
   flex-direction: column;
   width: 390px;
@@ -8,84 +8,86 @@
   background-color: #09182e;
 }
 
-.NavigateContent .MapBorder {
-  margin-left: 25px;
-  margin-top: 30px;
-  border-radius: 30px;
+.WalkNavigation .Sign {
+  display: flex;
+  width: 314px;
+  height: 317px;
+  margin-top: 90px;
+  margin-left: 23px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #ffffff;
+  border-radius: 23px;
 }
-
-.NavigateContent .footer {
+.WalkNavigation .footer {
   position: absoulte;
   width: 365px;
   height: 480px;
-  margin-top: 465px;
+  margin-top: 10px;
   border-radius: 23px;
 }
-
-.NavigateContent .footer .Informations {
+.WalkNavigation .footer .Informations {
   color: #ffffff;
   line-height: 50px;
   font-style: normal;
   font-size: 25px;
   text-align: left;
+  margin-top: 50px;
   margin-left: 70px;
 }
-.NavigateContent .footer .Buttons {
-  margin-top: 50px;
-  margin-left: 43px;
-  width: 300px;
+
+.WalkNavigation .footer .Buttons {
+  margin-top: 80px;
+  margin-left: 20px;
+  width: 330px;
   height: 26px;
 }
 
-.NavigateContent .footer .Buttons .StartBtn {
-  margin-right: 20px;
+.WalkNavigation .footer .Buttons .UpdateBtn {
+  margin-right: 10px;
   background-color: #172a46;
   border-radius: 23px;
   border: 0;
-  width: 140px;
-  height: 100px;
-
-  color: #ffffff;
-  font-size: 20px;
-  font-family: EliceDigitalBaeum-Bd;
 }
-.NavigateContent .footer .Buttons .NavigateStartBtn {
+
+.WalkNavigation .footer .Buttons .StopBtn {
+  margin-right: 10px;
   background-color: #172a46;
   border-radius: 23px;
   border: 0;
-  width: 140px;
-  height: 100px;
-
-  color: #ffffff;
-  font-size: 20px;
-  font-family: EliceDigitalBaeum-Bd;
 }
 
+.WalkNavigation .footer .Buttons .ReportBtn {
+  background-color: #172a46;
+  border-radius: 23px;
+  border: 0;
+}
 @media all and (max-width: 1024px) {
   /*브라우저 창 width가 1024px보다 작아지는 순간부터 적용
-        태블릿*/
-  .NavigateContent {
+          태블릿*/
+  .WalkNavigation {
     width: 800px;
   }
 }
 @media all and (max-width: 768px) {
   /*브라우저 창 width가 768px보다 작아지는 순간부터 적용
-        모바일*/
-  .NavigateContent {
+          모바일*/
+  .WalkNavigation {
     width: 360px;
   }
 }
 @media all and (min-width: 768px) {
   /*브라우저 창 width가 768px보다 커지는 순간부터 적용
-        태블릿*/
-  .NavigateContent {
+          태블릿*/
+  .WalkNavigation {
     width: 900px;
   }
 }
 @media all and (min-width: 1024px) {
   /*브라우저 창 width가 1024px보다 커지는 순간부터 적용
-        데스크탑*/
-  .NavigateContent {
+          데스크탑*/
+  .WalkNavigation {
     width: 400px;
   }
 }

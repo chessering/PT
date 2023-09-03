@@ -1,18 +1,22 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import $ from "jquery";
 import "../components/NavigateContent.css";
 window.$ = $;
 /*global Tmapv2 */
-
+var map;
 function Map() {
-  var map;
-  var tDistance = 0,
-    tTime = 0;
+  const navigate = useNavigate();
   var marker_s, marker_e;
+  const [tDistance, setTDistance] = useState(0);
+  const [tTime, setTTime] = useState(0);
   var drawInfoArr = [];
   var resultdrawArr = [];
+  const [data, setData] = useState([]);
+
   useEffect(() => {
     function initTmap() {
+      console.log("map");
       // 1. 지도 띄우기
       map = new Tmapv2.Map("map_div", {
         center: new Tmapv2.LatLng(37.5652045, 126.98702028),
@@ -63,16 +67,16 @@ function Map() {
           var resultData = response.features;
 
           //결과 출력
-          tDistance = (resultData[0].properties.totalDistance / 1000).toFixed(
-            1
+          var estimatedDistance = (
+            resultData[0].properties.totalDistance / 1000
+          ).toFixed(1);
+
+          var estimatedTime = (resultData[0].properties.totalTime / 60).toFixed(
+            0
           );
 
-          tTime =
-            " 총 시간 : " +
-            (resultData[0].properties.totalTime / 60).toFixed(0) +
-            "분";
-
-          $("#result").text(tDistance + tTime);
+          setTDistance(estimatedDistance);
+          setTTime(estimatedTime);
 
           //기존 그려진 라인 & 마커가 있다면 초기화
           if (resultdrawArr.length > 0) {
@@ -184,10 +188,9 @@ function Map() {
       });
       resultdrawArr.push(polyline_);
     }
-    return () => {
-      initTmap();
-    };
-  }, []);
+    initTmap();
+    return () => {};
+  }, [data]);
 
   return (
     <div className="NavigateContent">
@@ -206,12 +209,17 @@ function Map() {
           예상 시간 &emsp; &emsp; &nbsp;&nbsp;{tTime}분
           <br />총 거리 &emsp; &emsp; &emsp; &nbsp;{tDistance}m
           <br />
-          횡단보도 수 &emsp; &nbsp; &nbsp;5개
+          횡단보도 수 &emsp; &nbsp; &nbsp;-개
           <br />
         </div>
         <div className="Buttons">
           <button className="StartBtn">첫 화면으로</button>
-          <button className="NavigateStartBtn">안내 시작</button>
+          <button
+            className="NavigateStartBtn"
+            onClick={() => navigate("/WalkNavigation")}
+          >
+            안내 시작
+          </button>
         </div>
       </div>
     </div>
