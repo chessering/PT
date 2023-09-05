@@ -1,24 +1,30 @@
 import "../components/page.css";
 import "../components/Startpage.css";
-import * as TTS from "./TTS";
+// import * as TTS from "./TTS";
 import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 function Start() {
+  const navigate = useNavigate();
   useEffect(() => {
-    window.addEventListener("load", function () {
-      setTimeout(function () {
-        console.log("hi");
-        TTS.testFun("안녕하세요");
-      }, 1000); // 5000 밀리초(5초)
-    });
-    return () => {
-      window.removeEventListener("load", function () {
-        setTimeout(function () {
-          console.log("hi");
-          TTS.testFun("안녕하세요");
-        }, 1000); // 5000 밀리초(5초)
-      });
-    };
+    setTimeout(function () {
+      navigate("/Intro1");
+    }, 2000);
+
+    // window.addEventListener("load", function () {
+    //   setTimeout(function () {
+    //     console.log("hi");
+    //     TTS.testFun("안녕하세요");
+    //   }, 1000); // 5000 밀리초(5초)
+    // });
+    // return () => {
+    //   window.removeEventListener("load", function () {
+    //     setTimeout(function () {
+    //       console.log("hi");
+    //       TTS.testFun("안녕하세요");
+    //     }, 1000); // 5000 밀리초(5초)
+    //   });
+    // };
   }, []);
   return (
     <div className="startPage">

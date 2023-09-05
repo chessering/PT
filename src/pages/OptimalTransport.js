@@ -10,10 +10,10 @@ function OptimalTransport() {
           <br />
           시간
         </button>
-        <button className="MainStreetBtn">
-          큰길
+        <button className="MinTransBtn">
+          최소
           <br />
-          우선
+          환승
         </button>
         <br />
         <button className="SafeBtn">

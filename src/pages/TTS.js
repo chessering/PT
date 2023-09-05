@@ -5,6 +5,7 @@ export function testFun(text) {
   var data = {
     voice: {
       languageCode: "ko-KR",
+      name: "ko-KR-Wavenet-A",
     },
     input: {
       text: text,
@@ -23,9 +24,18 @@ export function testFun(text) {
       //   $("#output").val(res.audioContent);
       var audioFile = new Audio();
       let audioBlob = base64ToBlob(res.audioContent, "mp3");
+      const link = document.createElement("a");
+      link.href = window.URL.createObjectURL(audioBlob);
+      link.setAttribute("download", "dd");
+      document.body.appendChild(link);
+      link.click();
+
       audioFile.src = window.URL.createObjectURL(audioBlob);
+
+      console.log(audioFile.src);
       audioFile.playbackRate = 1; //재생속도
 
+      return audioFile.src;
       audioFile.play();
     },
     error: function (request, status, error) {
