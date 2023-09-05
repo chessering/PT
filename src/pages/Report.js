@@ -81,7 +81,7 @@ function Report() {
             />
           </svg>
           <br />
-          길찾기
+          지도로 이동
         </button>
       </div>
     </div>

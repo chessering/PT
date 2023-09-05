@@ -22,6 +22,7 @@ import Intro2 from "./pages/Intro2";
 import Intro3 from "./pages/Intro3";
 import Intro4 from "./pages/Intro4";
 import WalkNavigation from "./pages/WalkNavigation";
+import TTS from "./pages/TTS";
 
 function App() {
   return (
@@ -50,6 +51,7 @@ function App() {
           <Route path="/Report" element={<Report />} />
           <Route path="/ReportComplete" element={<ReportComplete />} />
           <Route path="/WalkNavigation" element={<WalkNavigation />} />
+          <Route path="/TTS" element={<TTS />} />
         </Routes>
       </BrowserRouter>
     </div>

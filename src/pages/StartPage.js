@@ -1,7 +1,25 @@
 import "../components/page.css";
 import "../components/Startpage.css";
+import * as TTS from "./TTS";
+import { useEffect } from "react";
 
 function Start() {
+  useEffect(() => {
+    window.addEventListener("load", function () {
+      setTimeout(function () {
+        console.log("hi");
+        TTS.testFun("안녕하세요");
+      }, 1000); // 5000 밀리초(5초)
+    });
+    return () => {
+      window.removeEventListener("load", function () {
+        setTimeout(function () {
+          console.log("hi");
+          TTS.testFun("안녕하세요");
+        }, 1000); // 5000 밀리초(5초)
+      });
+    };
+  }, []);
   return (
     <div className="startPage">
       <div className="image-wrap">
@@ -39,7 +57,6 @@ function Start() {
           />
         </svg>
       </div>
-
       <div>
         <svg
           xmlns="http://www.w3.org/2000/svg"

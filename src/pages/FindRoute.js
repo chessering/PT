@@ -6,7 +6,18 @@ import "../components/FindRoute.css";
 
 function FindRoute() {
   const navigate = useNavigate();
-
+  const handleImageSelect = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        const imageUrl = event.target.result;
+        console.log("선택된 이미지 URL: ", imageUrl);
+        // 이제 imageUrl을 상태나 컴포넌트의 데이터에 저장하거나 활용할 수 있습니다.
+      };
+      reader.readAsDataURL(file);
+    }
+  };
   return (
     <div className="FindRoute">
       <div className="Buttons">
@@ -42,23 +53,36 @@ function FindRoute() {
           길찾기
         </button>
         <br />
-        <button className="BlockReportBtn" onClick={() => navigate("/Report")}>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="210"
-            height="197"
-            viewBox="0 0 210 197"
-            fill="none"
-          >
-            <path
-              d="M105.608 54.0248V28M139.032 63.3222L152.171 40.7841M157.242 85.7567L180 72.7443M72.6446 63.3222L59.5055 40.7841M52.7577 85.7567L30 72.7443M151.71 168.625V158.58C151.71 153.537 147.582 149.449 142.49 149.449H68.7259C63.6336 149.449 59.5055 153.537 59.5055 158.58V168.625H151.71ZM136.957 149.449V111.097C136.957 95.967 124.573 83.7021 109.296 83.7021H100.998C85.7206 83.7021 73.3362 95.967 73.3362 111.097V149.449H136.957Z"
-              stroke="#FC6565"
-              strokeWidth="15"
-              strokeLinecap="round"
-            />
-          </svg>
-          <br />
-          신고하기
+        <button className="BlockReportBtn">
+          <label htmlFor="file">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="210"
+              height="197"
+              viewBox="0 0 210 197"
+              fill="none"
+            >
+              <path
+                d="M105.608 54.0248V28M139.032 63.3222L152.171 40.7841M157.242 85.7567L180 72.7443M72.6446 63.3222L59.5055 40.7841M52.7577 85.7567L30 72.7443M151.71 168.625V158.58C151.71 153.537 147.582 149.449 142.49 149.449H68.7259C63.6336 149.449 59.5055 153.537 59.5055 158.58V168.625H151.71ZM136.957 149.449V111.097C136.957 95.967 124.573 83.7021 109.296 83.7021H100.998C85.7206 83.7021 73.3362 95.967 73.3362 111.097V149.449H136.957Z"
+                stroke="#FC6565"
+                strokeWidth="15"
+                strokeLinecap="round"
+              />
+            </svg>
+            <br />
+            신고하기
+          </label>
+          <input
+            type="file"
+            name="file"
+            id="file"
+            capture="camera"
+            onChange={(e) => {
+              handleImageSelect(e);
+              navigate("/ReportComplete");
+            }}
+            style={{ display: "none" }}
+          />
         </button>
       </div>
     </div>
