@@ -1,13 +1,36 @@
 import React from "react";
 import "../components/ChooseInput.css";
+import * as TTS from "./TTS";
 import { useNavigate } from "react-router-dom";
 
 function ChooseInput() {
   const navigate = useNavigate();
+  let clickCount1 = 0,
+    clickCount2 = 0;
+  function handleClickCountEvent1() {
+    clickCount1 = clickCount1 + 1;
+    if (clickCount1 == 1) {
+      TTS.testFun("현재위치를 출발지로 지정하는 버튼입니다.");
+    } else if (clickCount1 == 2) {
+      navigate("/SearchArea");
+    }
+  }
+
+  function handleClickCountEvent2() {
+    clickCount2 = clickCount2 + 1;
+    if (clickCount2 == 1) {
+      TTS.testFun("출발지 입력 버튼입니다.");
+    } else if (clickCount2 == 2) {
+      navigate("/SearchArea");
+    }
+  }
   return (
     <div className="ChooseInput">
       <div className="Buttons">
-        <button className="StartPointBtn" onClick={() => navigate("/Map")}>
+        <button
+          className="StartPointBtn"
+          onClick={() => handleClickCountEvent1()}
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="150"
@@ -34,7 +57,7 @@ function ChooseInput() {
         <br />
         <button
           className="DestinationBtn"
-          onClick={() => navigate("/SearchArea")}
+          onClick={() => handleClickCountEvent2()}
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"

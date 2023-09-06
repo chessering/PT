@@ -1,8 +1,23 @@
 import "../components/page.css";
+import * as TTS from "./TTS";
+import { useNavigate } from "react-router-dom";
 
 function Intro4() {
+  const navigate = useNavigate();
+  function MovePage() {
+    setTimeout(function () {
+      navigate("/FindROute");
+    }, 5000);
+  }
   return (
-    <div className="startPage" style={{ position: "relative" }}>
+    <div
+      className="startPage"
+      style={{ position: "relative" }}
+      onClick={() => {
+        TTS.testFun("두 번 터치하면 선택할 수 있어요.");
+        MovePage();
+      }}
+    >
       <div>
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -72,9 +87,7 @@ function Intro4() {
       >
         두 번 터치하면
         <br />
-        음성 안내를
-        <br />
-        들을 수 있어요
+        선택할 수 있어요
       </div>
     </div>
   );

@@ -5,7 +5,7 @@ export function testFun(text) {
   var data = {
     voice: {
       languageCode: "ko-KR",
-      name: "ko-KR-Wavenet-A",
+      name: "ko-KR-Neural2-C",
     },
     input: {
       text: text,
@@ -24,18 +24,17 @@ export function testFun(text) {
       //   $("#output").val(res.audioContent);
       var audioFile = new Audio();
       let audioBlob = base64ToBlob(res.audioContent, "mp3");
-      const link = document.createElement("a");
-      link.href = window.URL.createObjectURL(audioBlob);
-      link.setAttribute("download", "dd");
-      document.body.appendChild(link);
-      link.click();
+      // const link = document.createElement("a");
+      // link.href = window.URL.createObjectURL(audioBlob);
+      // link.setAttribute("download", "dd");
+      // document.body.appendChild(link);
+      // link.click();
 
       audioFile.src = window.URL.createObjectURL(audioBlob);
 
-      console.log(audioFile.src);
+      // console.log(audioFile.src);
       audioFile.playbackRate = 1; //재생속도
 
-      return audioFile.src;
       audioFile.play();
     },
     error: function (request, status, error) {
@@ -69,10 +68,10 @@ function TTS() {
     <div>
       <button
         onClick={() => {
-          testFun("안녕하세요");
+          testFun("안녕하세요. 시각장애인을 위한 길안내 서비스 새로입니다.");
         }}
       >
-        음성으로 출력
+        버튼
       </button>
     </div>
   );
