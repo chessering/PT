@@ -56,10 +56,11 @@ function SearchArea() {
               pointCng
             );
 
+            var bizName = resultpoisData[k].middleBizName;
             var lat = projectionCng._lat;
             var lon = projectionCng._lng;
 
-            updatedList.push({ name, lat, lon });
+            updatedList.push({ name, lat, lon, address, bizName });
             var marker = new Tmapv2.Marker({
               fulladdress: address,
               title: name,
@@ -86,7 +87,7 @@ function SearchArea() {
   };
 
   return (
-    <div className="basePage">
+    <div className="basePage" style={{overflowY : "scroll"}}>
       <div className="InputAndButton">
         <svg
           className="Mark"
@@ -133,7 +134,7 @@ function SearchArea() {
               <React.Fragment key={index}>
                 <button
                   style={{
-                    padding: "10 32",
+                    padding: "0px 25px",
                     height: "280px",
                     width: "280px",
                     marginBottom: "30px",
@@ -143,15 +144,47 @@ function SearchArea() {
                     navigate("/DestCheck", {
                       state: {
                         name: item.name,
-                        endLat: item.lat,
-                        endLon: item.lon,
                         startLat: startLat,
                         startLon: startLon,
+                        endLat: item.lat,
+                        endLon: item.lon,
                       },
                     })
                   }
                 >
-                  {item.name}
+                    <p style={{
+                    marginTop: "15px",
+                    color: "#172A46",
+                    fontFamily: "EliceDigitalBaeum-bd",
+                    fontSize: "30px",
+                    fontWeight: "1000",
+                    textAlign: "left",
+                    marginBottom: "15px",
+                  }}>{item.name}</p>
+                  <p style={{
+                    marginTop: "0px",
+                    color: "#172A46",
+                    fontFamily: "EliceDigitalBaeum-bd",
+                    fontSize: "20px",
+                    fontWeight: "0",
+                    textAlign: "left"
+                  }}> {item.address} </p>
+                  <p style={{
+                    color: "#172A46",
+                    fontFamily: "EliceDigitalBaeum-bd",
+                    fontSize: "20px",
+                    fontStyle: "normal",
+                    fontWeight: "0",
+                    textAlign: "left"
+                  }}> {item.bizName} </p>
+                  <p style={{
+                    color: "#172A46",
+                    fontFamily: "EliceDigitalBaeum-bd",
+                    fontSize: "20px",
+                    fontWeight: "0",
+                    textAlign: "left"
+                  }}> 거리 </p>
+                  
                 </button>
                 <br />
               </React.Fragment>
