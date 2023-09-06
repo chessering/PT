@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import $ from "jquery";
 import "../components/SearchArea.css";
@@ -10,6 +10,8 @@ function SearchArea() {
   const navigate = useNavigate();
   const [searchKeyword, setSearchKeyword] = useState("");
   const [list, setList] = useState([]);
+
+
 
   const handleSearchClick = () => {
     $("#btn_select").ready(function () {
@@ -30,6 +32,7 @@ function SearchArea() {
         },
         success: function (response) {
           var resultpoisData = response.searchPoiInfo.pois.poi;
+          var address = "";
 
           // 기존 마커, 팝업 제거
           if (markerArr.length > 0) {
@@ -44,7 +47,7 @@ function SearchArea() {
             var noorLon = Number(resultpoisData[k].noorLon);
             var name = resultpoisData[k].name;
             for (var p in resultpoisData[k].newAddressList.newAddress) {
-              var address =
+              address =
                 resultpoisData[k].newAddressList.newAddress[p].fullAddressRoad;
             }
 
@@ -52,11 +55,12 @@ function SearchArea() {
             var projectionCng = new Tmapv2.Projection.convertEPSG3857ToWGS84GEO(
               pointCng
             );
+            var bizName = resultpoisData[k].middleBizName;
 
             var lat = projectionCng._lat;
             var lon = projectionCng._lng;
 
-            updatedList.push({ name, lat, lon });
+            updatedList.push({ name, lat, lon, address, bizName });
             var marker = new Tmapv2.Marker({
               fulladdress: address,
               title: name,
@@ -83,7 +87,7 @@ function SearchArea() {
   };
 
   return (
-    <div className="basePage">
+    <div className="basePage" style={{overflowY : "scroll"}}>
       <div className="InputAndButton">
         <svg
           className="Mark"
@@ -128,7 +132,7 @@ function SearchArea() {
               <React.Fragment key={index}>
                 <button
                   style={{
-                    padding: "10 32",
+                    padding: "0px 25px",
                     height: "280px",
                     width: "280px",
                     marginBottom: "30px",
@@ -144,7 +148,39 @@ function SearchArea() {
                     })
                   }
                 >
-                  {item.name}
+                    <p style={{
+                    marginTop: "15px",
+                    color: "#172A46",
+                    fontFamily: "EliceDigitalBaeum-bd",
+                    fontSize: "30px",
+                    fontWeight: "1000",
+                    textAlign: "left",
+                    marginBottom: "15px",
+                  }}>{item.name}</p>
+                  <p style={{
+                    marginTop: "0px",
+                    color: "#172A46",
+                    fontFamily: "EliceDigitalBaeum-bd",
+                    fontSize: "20px",
+                    fontWeight: "0",
+                    textAlign: "left"
+                  }}> {item.address} </p>
+                  <p style={{
+                    color: "#172A46",
+                    fontFamily: "EliceDigitalBaeum-bd",
+                    fontSize: "20px",
+                    fontStyle: "normal",
+                    fontWeight: "0",
+                    textAlign: "left"
+                  }}> {item.bizName} </p>
+                  <p style={{
+                    color: "#172A46",
+                    fontFamily: "EliceDigitalBaeum-bd",
+                    fontSize: "20px",
+                    fontWeight: "0",
+                    textAlign: "left"
+                  }}> 거리 </p>
+                  
                 </button>
                 <br />
               </React.Fragment>
