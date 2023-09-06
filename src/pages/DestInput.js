@@ -11,6 +11,7 @@ function SearchArea() {
   const location = useLocation();
   const [searchKeyword, setSearchKeyword] = useState("");
   const [list, setList] = useState([]);
+  const startName = location.state.startName;
   const startLat = location.state.startLat;
   const startLon = location.state.startLon;
 
@@ -55,7 +56,6 @@ function SearchArea() {
             var projectionCng = new Tmapv2.Projection.convertEPSG3857ToWGS84GEO(
               pointCng
             );
-
             var bizName = resultpoisData[k].middleBizName;
             var lat = projectionCng._lat;
             var lon = projectionCng._lng;
@@ -85,9 +85,8 @@ function SearchArea() {
       });
     });
   };
-
   return (
-    <div className="basePage" style={{overflowY : "scroll"}}>
+    <div className="basePage" style={{ overflowY: "scroll" }}>
       <div className="InputAndButton">
         <svg
           className="Mark"
@@ -143,48 +142,67 @@ function SearchArea() {
                   onClick={() =>
                     navigate("/DestCheck", {
                       state: {
-                        name: item.name,
-                        startLat: startLat,
-                        startLon: startLon,
+                        endName: item.name,
                         endLat: item.lat,
                         endLon: item.lon,
+                        startLat: startLat,
+                        startLon: startLon,
+                        startName: startName,
                       },
                     })
                   }
                 >
-                    <p style={{
-                    marginTop: "15px",
-                    color: "#172A46",
-                    fontFamily: "EliceDigitalBaeum-bd",
-                    fontSize: "30px",
-                    fontWeight: "1000",
-                    textAlign: "left",
-                    marginBottom: "15px",
-                  }}>{item.name}</p>
-                  <p style={{
-                    marginTop: "0px",
-                    color: "#172A46",
-                    fontFamily: "EliceDigitalBaeum-bd",
-                    fontSize: "20px",
-                    fontWeight: "0",
-                    textAlign: "left"
-                  }}> {item.address} </p>
-                  <p style={{
-                    color: "#172A46",
-                    fontFamily: "EliceDigitalBaeum-bd",
-                    fontSize: "20px",
-                    fontStyle: "normal",
-                    fontWeight: "0",
-                    textAlign: "left"
-                  }}> {item.bizName} </p>
-                  <p style={{
-                    color: "#172A46",
-                    fontFamily: "EliceDigitalBaeum-bd",
-                    fontSize: "20px",
-                    fontWeight: "0",
-                    textAlign: "left"
-                  }}> 거리 </p>
-                  
+                  <p
+                    style={{
+                      marginTop: "15px",
+                      color: "#172A46",
+                      fontFamily: "EliceDigitalBaeum-bd",
+                      fontSize: "30px",
+                      fontWeight: "1000",
+                      textAlign: "left",
+                      marginBottom: "15px",
+                    }}
+                  >
+                    {item.name}
+                  </p>
+                  <p
+                    style={{
+                      marginTop: "0px",
+                      color: "#172A46",
+                      fontFamily: "EliceDigitalBaeum-bd",
+                      fontSize: "20px",
+                      fontWeight: "0",
+                      textAlign: "left",
+                    }}
+                  >
+                    {" "}
+                    {item.address}{" "}
+                  </p>
+                  <p
+                    style={{
+                      color: "#172A46",
+                      fontFamily: "EliceDigitalBaeum-bd",
+                      fontSize: "20px",
+                      fontStyle: "normal",
+                      fontWeight: "0",
+                      textAlign: "left",
+                    }}
+                  >
+                    {" "}
+                    {item.bizName}{" "}
+                  </p>
+                  <p
+                    style={{
+                      color: "#172A46",
+                      fontFamily: "EliceDigitalBaeum-bd",
+                      fontSize: "20px",
+                      fontWeight: "0",
+                      textAlign: "left",
+                    }}
+                  >
+                    {" "}
+                    거리{" "}
+                  </p>
                 </button>
                 <br />
               </React.Fragment>

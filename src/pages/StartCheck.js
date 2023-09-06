@@ -1,10 +1,13 @@
 import "../components/CheckPage.css";
 import { useNavigate, useLocation } from "react-router-dom";
+import $ from "jquery";
+window.$ = $;
+/*global Tmapv2 */
 
 function StartCheck() {
   const navigate = useNavigate();
   const location = useLocation();
-  const name = location.state.name;
+  const startName = location.state.startName;
   const startLat = location.state.startLat;
   const startLon = location.state.startLon;
 
@@ -26,7 +29,7 @@ function StartCheck() {
           />
         </svg>
         <div className="Place">
-          <div>{name}</div>
+          <div>{startName}</div>
         </div>
       </div>
 
@@ -37,6 +40,7 @@ function StartCheck() {
           onClick={() =>
             navigate("/DestInput", {
               state: {
+                startName: startName,
                 startLat: startLat,
                 startLon: startLon,
               },

@@ -4,11 +4,12 @@ import { useNavigate, useLocation } from "react-router-dom";
 function DestCheck() {
   const navigate = useNavigate();
   const location = useLocation();
-  const name = location.state.name;
-  const startLat = location.state.lat;
-  const startLon = location.state.lon;
-  const endLat = location.state.lat;
-  const endLon = location.state.lon;
+  const endName = location.state.endName;
+  const startLat = location.state.startLat;
+  const startLon = location.state.startLon;
+  const endLat = location.state.endLat;
+  const endLon = location.state.endLon;
+  const startName = location.state.startName;
 
   return (
     <div className="CheckPage">
@@ -30,7 +31,7 @@ function DestCheck() {
         </svg>
 
         <div className="Place">
-          <div>{name}</div>
+          <div>{endName}</div>
         </div>
       </div>
 
@@ -45,6 +46,8 @@ function DestCheck() {
                 startLon: startLon,
                 endLat: endLat,
                 endLon: endLon,
+                startName: startName,
+                endName: endName,
               },
             })
           }
@@ -58,6 +61,8 @@ function DestCheck() {
               state: {
                 startLat: startLat,
                 startLon: startLon,
+                startName: startName,
+                endName: endName,
               },
             })
           }

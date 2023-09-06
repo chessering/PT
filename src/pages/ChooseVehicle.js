@@ -1,14 +1,63 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import "../components/ChooseVehicle.css";
+import * as TTS from "./TTS";
 
 function ChooseVehicle() {
   const navigate = useNavigate();
+  const location = useLocation();
+  const startLat = location.state.startLat;
+  const startLon = location.state.startLon;
+  const endLat = location.state.endLat;
+  const endLon = location.state.endLon;
+  const startName = location.state.startName;
+  const endName = location.state.endName;
+  let clickCount1 = 0;
+  function handleClickCountEvent1() {
+    clickCount1 = clickCount1 + 1;
+    if (clickCount1 == 1) {
+      TTS.testFun("보행 길 찾기 버튼입니다.");
+    } else if (clickCount1 == 2) {
+      navigate("/OptimalWalk", {
+        state: {
+          startLat: startLat,
+          startLon: startLon,
+          endLat: endLat,
+          endLon: endLon,
+          startName: startName,
+          endName: endName,
+        },
+      });
+    }
+  }
+  let clickCount2 = 0;
+  function handleClickCountEvent2() {
+    clickCount2 = clickCount2 + 1;
+    if (clickCount2 == 1) {
+      TTS.testFun("대중교통 길 찾기 버튼입니다.");
+    } else if (clickCount2 == 2) {
+      navigate("/OptimalTransport", {
+        state: {
+          startLat: startLat,
+          startLon: startLon,
+          endLat: endLat,
+          endLon: endLon,
+          startName: startName,
+          endName: endName,
+        },
+      });
+    }
+  }
 
   return (
     <div className="ChooseVehicle">
       <div className="Buttons">
-        <button className="WalkBtn">
+        <button
+          className="WalkBtn"
+          onClick={() => {
+            handleClickCountEvent1();
+          }}
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="150"
@@ -36,7 +85,12 @@ function ChooseVehicle() {
           <br />
           보행
         </button>
-        <button className="PublicTransportBtn">
+        <button
+          className="PublicTransportBtn"
+          onClick={() => {
+            handleClickCountEvent2();
+          }}
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="130"

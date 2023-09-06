@@ -15,10 +15,13 @@
 }
 
 .NavigateContent .footer {
+  position: fixed;
   width: 365px;
   height: 480px;
-  margin-top: 465px;
+  margin-top: 485px;
   border-radius: 23px;
+  margin-right: 20px;
+  margin-left: -13px;
 }
 
 .NavigateContent .footer .Informations {
