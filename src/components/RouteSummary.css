@@ -1,0 +1,75 @@
+.Content {
+    display: flex;
+    flex-direction: column;
+    align-content: stretch;
+    width: 390px;
+    height: 844px;
+    text-align: center;
+    padding: 30px;
+    flex-shrink: 0;
+
+    overflow-y:scroll;
+  
+    border-radius: 23px;
+    color : #FFF;
+    background: #09182E;
+    box-shadow: 10px -1px 10px 1px rgba(0, 0, 0, 0.25);
+    font-family: Inter;
+    font-size: 25px;
+    font-style: normal;
+    font-weight: 150;
+  }
+  .Content .TotalTime {
+    text-align: left;
+    margin-bottom: 40px;
+  }
+
+
+  .Content .Container{
+    display:flex;
+    flex-direction: row;
+    align-items: flex-start;
+  }
+
+  .Content .Container .Time {
+    margin : 0 0;
+    width: 50px;
+    text-align: center;
+    flex-direction: column;
+    justify-content: center;
+    color: #C3C3C3;
+
+    font-size: 15px;
+  }
+
+  .Content .Container .image-wrap {
+    display: flex;
+    flex-direction: column;
+    width: 50px;
+    height: 128px;
+    margin: 0 0;
+    margin-right: 20px;
+    align-items: center;
+  }
+  .Content .Container .text-wrap {
+    display: flex;
+    flex-direction: column;
+    
+  }
+  .Content .Container .text-wrap .text {
+    margin: 0 0;
+    text-align: left;
+  }
+  .Content .EndContainer {
+    display: flex;
+    flex-direction: row;
+    height: 50px;
+  }
+  .Content .EndContainer .endmark{
+    width: 29px;
+    height: 37px;
+    margin-left: 60px;
+  }
+  .Content .EndContainer .endText{
+    margin-left: 40px;
+  }
