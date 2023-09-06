@@ -94,51 +94,66 @@ import "../NavigateContent.css";
 window.$ = $;
 /*global Tmapv2 */
 
-
-function MinWalkMap() {
-  const [map, setMap] = useState(null);
+function TransportMap() {
   const location = useLocation();
   console.log(location.state);
-  var totalTime = location.state.Path.info.totalTime;
-  var totalDist = location.state.Path.info.trafficDistance + location.state.Path.info.totalWalk;
-  var transfer = location.state.Path.info.totalStationCount;
-  if (transfer != 0 && transfer != 1) {
-    transfer -= 1;
-  }
-
+  // var totalTime = location.state.Path.info.totalTime;
+  // var totalDist = location.state.Path.info.trafficDistance + location.state.Path.info.totalWalk;
+  // var transfer = location.state.Path.info.totalStationCount;
+  // if (transfer != 0 && transfer != 1) {
+  //   transfer -= 1;
+  // }
+var tmap;
   useEffect(() => {
     const initMap = async () => {
+      console.log(3);
       // Tmap API 초기화
-      const tmap = new Tmapv2.Map({
+      tmap = new Tmapv2.Map({
+        center:new Tmapv2.LatLng(37.5652045, 126.98702028),
         div: "map",
         width: "100%",
         height: "400px",
         zoom: 12,
-        zoomControl: true,
-        scrollwheel: true,
+        
       });
+      console.log(2);
 
-      setMap(tmap);
+      var headers={};
+      headers["apikey"] = "P7e7V2R2hHX%2BPv4%2BFlgsfHHJ5FvnKvJ%2FER5h0qInTgw";
 
       // 출발지와 도착지 좌표 가져오기 (ODSay API 사용)
       try {
+        console.log(1);
         const response = await axios.get(
           "https://api.odsay.com/v1/api/searchPubTransPathT",
+          
           {
+            headers : headers,
+            async: false,
             params: {
               SX: "126.983937",
               SY: "37.564991",
               EX: "126.988940",
               EY: "37.566158",
-              apiKey: "P7e7V2R2hHX%2BPv4%2BFlgsfHHJ5FvnKvJ%2FER5h0qInTgw",
               
             },
           }
         );
+        console.log(response);
+        const startPoint = {
+          x: location.state.startLat,
+          y: location.state.startLon,
+        }
+        const endPoint = {
+          x: location.state.endtLat,
+          y: location.state.endLon,
+        }
+         
+        const path = response.result.path;
 
-        const path = response.data.result.path[0];
-        const startPoint = path.info.start;
-        const endPoint = path.info.end;
+        // const path = response.data.result.path;
+        // const startPoint = path.info.start;
+        // const endPoint = path.info.end;
 
         // 출발지와 도착지 마커 추가
         const startMarker = new Tmapv2.Marker({
@@ -173,8 +188,9 @@ function MinWalkMap() {
         console.error("Error fetching route:", error);
       }
     };
+    initMap();
     return () => {
-        initMap();
+
       };
     }, []);
 
@@ -192,9 +208,9 @@ function MinWalkMap() {
       </div>
       <div className="footer">
         <div className="Informations">
-          예상 시간 &emsp; &emsp; &nbsp;&nbsp;{totalTime}분
-          <br />총 거리 &emsp; &emsp; &emsp; &nbsp;{totalDist}m
-          <br />환승 수 &emsp; &emsp; &emsp; &nbsp;{transfer}번
+          예상 시간 &emsp; &emsp; &nbsp;&nbsp;분
+          <br />총 거리 &emsp; &emsp; &emsp; &nbsp;m
+          <br />환승 수 &emsp; &emsp; &emsp; &nbsp;번
           <br />
           횡단보도 수 &emsp; &nbsp; &nbsp;5개
           <br />
@@ -208,4 +224,4 @@ function MinWalkMap() {
   );
 }
 
-export default MinWalkMap;
+export default TransportMap;
