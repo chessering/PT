@@ -5,10 +5,11 @@ function DestCheck() {
   const navigate = useNavigate();
   const location = useLocation();
   const name = location.state.name;
-  const startLat = location.state.lat;
-  const startLon = location.state.lon;
-  const endLat = location.state.lat;
-  const endLon = location.state.lon;
+  const startLat = location.state.startLat;
+  const startLon = location.state.startLon;
+  const endLat = location.state.endLat;
+  const endLon = location.state.endLon;
+  console.log(startLat, startLon, endLat, endLon);
 
   return (
     <div className="CheckPage">

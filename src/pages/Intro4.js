@@ -6,7 +6,7 @@ function Intro4() {
   const navigate = useNavigate();
   function MovePage() {
     setTimeout(function () {
-      navigate("/FindROute");
+      navigate("/FindRoute");
     }, 5000);
   }
   return (

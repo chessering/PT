@@ -37,6 +37,7 @@ function StartCheck() {
           onClick={() =>
             navigate("/DestInput", {
               state: {
+                SName: name,
                 startLat: startLat,
                 startLon: startLon,
               },

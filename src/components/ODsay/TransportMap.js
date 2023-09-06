@@ -86,113 +86,169 @@
 // export default DrawMap;
 
 
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import axios from "axios";
 import $ from "jquery";
 import "../NavigateContent.css";
-window.$ = $;
 /*global Tmapv2 */
 
 function TransportMap() {
   const location = useLocation();
   console.log(location.state);
-  // var totalTime = location.state.Path.info.totalTime;
-  // var totalDist = location.state.Path.info.trafficDistance + location.state.Path.info.totalWalk;
-  // var transfer = location.state.Path.info.totalStationCount;
-  // if (transfer != 0 && transfer != 1) {
-  //   transfer -= 1;
-  // }
-var tmap;
+  var drawInfoArr = [];
+  var resultdrawArr = [];
+
+
   useEffect(() => {
-    const initMap = async () => {
-      console.log(3);
-      // Tmap API 초기화
-      tmap = new Tmapv2.Map({
-        center:new Tmapv2.LatLng(37.5652045, 126.98702028),
-        div: "map",
+    const searchPubTransPathAxios = async () => {
+      // 출발지와 도착지 좌표
+      const sx = 126.93737555322481;
+      const sy = 37.55525165729346;
+      const ex = 126.88265238619182;
+      const ey = 37.481440035175375;
+
+      var map = new Tmapv2.Map("map", {
+        center: new Tmapv2.LatLng(37.5652045, 126.98702028),
         width: "100%",
         height: "400px",
         zoom: 12,
-        
+        zoomControl: true,
+        scrollwheel: true,
       });
-      console.log(2);
 
-      var headers={};
-      headers["apikey"] = "P7e7V2R2hHX%2BPv4%2BFlgsfHHJ5FvnKvJ%2FER5h0qInTgw";
+      // ODsay API 키
 
-      // 출발지와 도착지 좌표 가져오기 (ODSay API 사용)
+      // ODsay API 엔드포인트
+      const url = `https://api.odsay.com/v1/api/searchPubTransPathT?SX=${sx}&SY=${sy}&EX=${ex}&EY=${ey}&apiKey=P7e7V2R2hHX%2BPv4%2BFlgsfHHJ5FvnKvJ%2FER5h0qInTgw`;
+
       try {
-        console.log(1);
-        const response = await axios.get(
-          "https://api.odsay.com/v1/api/searchPubTransPathT",
+        const response = await axios.get(url);
+        if (response.status === 200) {
+          const data = response.data;
+
+          // 결과 데이터를 출력
+          console.log(data);
+          const startPoint = {
+            x: location.state.startLat,
+            y: location.state.startLon,
+          };
+          const endPoint = {
+            x: location.state.endtLat,
+            y: location.state.endLon,
+          };
+  
+          const path = response.data.result.path[0];
+          // 출발지와 도착지 마커 추가
+          const startMarker = new Tmapv2.Marker({
+            position: new Tmapv2.LatLng(startPoint.y, startPoint.x),
+            icon: "http://tmapapi.sktelecom.com/upload/tmap/marker/pin_r_m_s.png",
+            iconSize: new Tmapv2.Size(24, 38),
+            map: map,
+          });
+  
+          const endMarker = new Tmapv2.Marker({
+            position: new Tmapv2.LatLng(endPoint.y, endPoint.x),
+            icon: "http://tmapapi.sktelecom.com/upload/tmap/marker/pin_b_m_p.png",
+            iconSize: new Tmapv2.Size(24, 38),
+            map: map,
+          });
           
-          {
-            headers : headers,
-            async: false,
-            params: {
-              SX: "126.983937",
-              SY: "37.564991",
-              EX: "126.988940",
-              EY: "37.566158",
-              
-            },
+          console.log(path.info.mapObj);
+
+          if (resultdrawArr.length > 0) {
+            for (var i in resultdrawArr) {
+              resultdrawArr[i].setMap(null);
+            }
+            resultdrawArr = [];
           }
-        );
-        console.log(response);
-        const startPoint = {
-          x: location.state.startLat,
-          y: location.state.startLon,
+          drawInfoArr = [];
+          // 경로 그리기
+
+          var subPath = path.subPath;
+
+          for (var key in subPath) {
+            if (subPath[key].trafficType == 3) {
+              if (key == 0) {
+                var latlng = new Tmapv2.Point(
+                  startPoint.x, startPoint.y
+                );
+              }
+              else {
+
+              }
+            }
+            var convertPoint = 
+              new Tmapv2.Projection.convertEPSG3857ToWGS84GEO(latlng);
+            var convertChange = new Tmapv2.LatLng(
+              convertPoint._lat,
+              convertPoint._lng
+            );
+            drawInfoArr.push(convertChange);
+
+            var markerImg = "";
+              var size;
+
+              if (key == 0) {
+                markerImg = "/upload/tmap/marker/pin_r_m_s.png";
+                size = new Tmapv2.Size(24, 38);
+              }
+               else if (key == Object.values(subPath) - 1) {
+                //도착지 마커
+                markerImg = "/upload/tmap/marker/pin_r_m_e.png";
+                size = new Tmapv2.Size(24, 38);
+              } else {
+                //각 포인트 마커
+                markerImg = "http://topopen.tmap.co.kr/imgs/point.png";
+                size = new Tmapv2.Size(8, 8);
+              }
+
+              // 경로들의 결과값들을 포인트 객체로 변환
+              var latlon = new Tmapv2.Point(
+                
+              );
+
+              // 포인트 객체를 받아 좌표값으로 다시 변환
+              var convertPoint =
+                new Tmapv2.Projection.convertEPSG3857ToWGS84GEO(latlon);
+
+              var routeInfoObj = {
+                markerImage: markerImg,
+                lng: convertPoint._lng,
+                lat: convertPoint._lat,
+              };
+
+              // Marker 추가
+              var marker_p = new Tmapv2.Marker({
+                position: new Tmapv2.LatLng(routeInfoObj.lat, routeInfoObj.lng),
+                icon: routeInfoObj.markerImage,
+                iconSize: size,
+                map: map,
+              });
+            
+          }
+
+
+
+          const points = path.info.mapObj.split(":");
+          const routePoints = points.map((point) => {
+            const [x, y] = point.split(",");
+            return new Tmapv2.LatLng(y, x);
+          });
+  
+          const route = new Tmapv2.Polyline({
+            path: routePoints,
+            strokeColor: "#DD0000",
+            strokeWeight: 6,
+            map: map,
+          });
         }
-        const endPoint = {
-          x: location.state.endtLat,
-          y: location.state.endLon,
-        }
-         
-        const path = response.result.path;
-
-        // const path = response.data.result.path;
-        // const startPoint = path.info.start;
-        // const endPoint = path.info.end;
-
-        // 출발지와 도착지 마커 추가
-        const startMarker = new Tmapv2.Marker({
-          position: new Tmapv2.LatLng(startPoint.y, startPoint.x),
-          icon: "http://tmapapi.sktelecom.com/upload/tmap/marker/pin_r_m_s.png",
-          iconSize: new Tmapv2.Size(24, 38),
-          map: tmap,
-        });
-
-        const endMarker = new Tmapv2.Marker({
-          position: new Tmapv2.LatLng(endPoint.y, endPoint.x),
-          icon: "http://tmapapi.sktelecom.com/upload/tmap/marker/pin_b_m_p.png",
-          iconSize: new Tmapv2.Size(24, 38),
-          map: tmap,
-        });
-
-        // 경로 그리기
-        const points = path.info.mapObj.split(" ");
-        const routePoints = points.map((point) => {
-          const [x, y] = point.split(",");
-          return new Tmapv2.LatLng(y, x);
-        });
-
-        const route = new Tmapv2.Polyline({
-          path: routePoints,
-          strokeColor: "#DD0000",
-          strokeWeight: 6,
-          map: tmap,
-        });
-        
       } catch (error) {
-        console.error("Error fetching route:", error);
+        console.error("Error fetching data:", error);
       }
     };
-    initMap();
-    return () => {
-
-      };
-    }, []);
+    searchPubTransPathAxios();
+  }, [location.state]);
 
   return (
     <div className="NavigateContent">

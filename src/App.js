@@ -23,8 +23,9 @@ import Intro3 from "./pages/Intro3";
 import Intro4 from "./pages/Intro4";
 import WalkNavigation from "./pages/WalkNavigation";
 import TTS from "./pages/TTS";
-import MinWalkMap from "./components/ODsay/MinWalkMap";
+import TransportMap from "./components/ODsay/TransportMap";
 import RouteSummary from "./components/ODsay/RouteSummary";
+import LoadingPage from "./pages/LoadingPage";
 
 function App() {
   return (
@@ -54,7 +55,9 @@ function App() {
           <Route path="/ReportComplete" element={<ReportComplete />} />
           <Route path="/WalkNavigation" element={<WalkNavigation />} />
           <Route path="/TTS" element={<TTS />} />
+          <Route path="TransportMap" element={<TransportMap/>}/>
           <Route path="/RouteSummary" element={<RouteSummary/>}/>
+          <Route path="/LoadingPage" element={<LoadingPage/>}/>
         </Routes>
       </BrowserRouter>
     </div>

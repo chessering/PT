@@ -103,7 +103,6 @@ function FindRoute() {
                   />
                 </svg>
                 <br />
-                신고하기
                 <input
                   type="file"
                   name="file"

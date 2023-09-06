@@ -1,14 +1,19 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import "../components/ChooseVehicle.css";
 
 function ChooseVehicle() {
   const navigate = useNavigate();
+  const location = useLocation();
+  const startLat = location.state.startLat;
+  const startLon = location.state.startLon;
+  const endLat = location.state.endLat;
+  const endLon = location.state.endLon;
 
   return (
     <div className="ChooseVehicle">
       <div className="Buttons">
-        <button className="WalkBtn">
+        <button className="WalkBtn" onClick={() => navigate('/OptimalWalk')}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="150"
@@ -36,7 +41,14 @@ function ChooseVehicle() {
           <br />
           보행
         </button>
-        <button className="PublicTransportBtn">
+        <button className="PublicTransportBtn" onClick={() => navigate('/OptimalTransport', {
+          state: {
+            startLat: startLat,
+            startLon: startLon,
+            endLat: endLat,
+            endLon: endLon,
+          }
+        })}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="130"
