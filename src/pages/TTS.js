@@ -1,8 +1,6 @@
 import $ from "jquery";
 window.$ = $;
-let audioBlob = false;
-let audioFile = false;
-export async function testFun(text) {
+export function testFun(text) {
   console.log(text);
   var data = {
     voice: {
@@ -24,9 +22,8 @@ export async function testFun(text) {
     contentType: "application/json; charset=UTF-8",
     success: function (res) {
       //   $("#output").val(res.audioContent);
-      if (audioFile) audioFile.muted = true;
-      audioFile = new Audio();
-      audioBlob = base64ToBlob(res.audioContent, "mp3");
+      var audioFile = new Audio();
+      let audioBlob = base64ToBlob(res.audioContent, "mp3");
       // const link = document.createElement("a");
       // link.href = window.URL.createObjectURL(audioBlob);
       // link.setAttribute("download", "dd");
@@ -34,17 +31,16 @@ export async function testFun(text) {
       // link.click();
 
       audioFile.src = window.URL.createObjectURL(audioBlob);
+
       // console.log(audioFile.src);
       audioFile.playbackRate = 1; //재생속도
-      audioFile.muted=false;
+
       audioFile.play();
-  
     },
     error: function (request, status, error) {
       console.log("오류입니다.");
     },
   });
-  return audioFile.src;
 }
 
 export function base64ToBlob(base64, fileType) {

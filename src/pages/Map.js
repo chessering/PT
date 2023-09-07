@@ -38,14 +38,14 @@ function Map() {
       TTS.testFun("안내 시작 버튼입니다.");
     } else if (clickCount2 == 2) {
       TTS.testFun("안내를 시작합니다.");
-      navigate("/WalkNavigation", {
+      navigate("/Pg1", {
         state: { features: features },
       });
     }
   }
   useEffect(() => {
     function initTmap() {
-      console.log("map");
+      console.log(features);
       // 1. 지도 띄우기
       map = new Tmapv2.Map("map_div", {
         center: new Tmapv2.LatLng(
@@ -54,7 +54,7 @@ function Map() {
         ),
         width: "340px",
         height: "430px",
-        zoom: 12,
+        zoom: 14,
         zoomControl: true,
         scrollwheel: true,
       });

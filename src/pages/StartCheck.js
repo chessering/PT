@@ -1,6 +1,8 @@
 import "../components/CheckPage.css";
 import { useNavigate, useLocation } from "react-router-dom";
+import { useEffect } from "react";
 import $ from "jquery";
+import * as TTS from "./TTS";
 window.$ = $;
 /*global Tmapv2 */
 
@@ -10,7 +12,11 @@ function StartCheck() {
   const startName = location.state.startName;
   const startLat = location.state.startLat;
   const startLon = location.state.startLon;
-
+  let clickCount1 = 0;
+  let clickCount2 = 0;
+  useEffect(() => {
+    TTS.testFun("입력한 정보가 맞나요?");
+  });
   return (
     <div className="CheckPage">
       <div className="InputAndButton">
@@ -37,19 +43,34 @@ function StartCheck() {
       <div className="Btns">
         <div
           className="YesBtn"
-          onClick={() =>
-            navigate("/DestInput", {
-              state: {
-                startName: startName,
-                startLat: startLat,
-                startLon: startLon,
-              },
-            })
-          }
+          onClick={() => {
+            clickCount1 = clickCount1 + 1;
+            if (clickCount1 == 1) {
+              TTS.testFun("네 버튼입니다.");
+            } else if (clickCount1 == 2) {
+              navigate("/DestInput", {
+                state: {
+                  startName: startName,
+                  startLat: startLat,
+                  startLon: startLon,
+                },
+              });
+            }
+          }}
         >
           네
         </div>
-        <div className="NoBtn" onClick={() => navigate("/SearchArea")}>
+        <div
+          className="NoBtn"
+          onClick={() => {
+            clickCount2 = clickCount2 + 1;
+            if (clickCount2 == 1) {
+              TTS.testFun("아니요 버튼입니다.");
+            } else if (clickCount1 == 2) {
+              navigate("/SearchArea");
+            }
+          }}
+        >
           아니요
         </div>
       </div>

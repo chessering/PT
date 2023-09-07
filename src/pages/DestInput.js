@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import $ from "jquery";
 import "../components/SearchArea.css";
+import * as TTS from "./TTS";
 window.$ = $;
 /*global Tmapv2 */
 
@@ -14,6 +15,7 @@ function SearchArea() {
   const startName = location.state.startName;
   const startLat = location.state.startLat;
   const startLon = location.state.startLon;
+  let clickCount1 = 0;
 
   const handleSearchClick = () => {
     $("#btn_select").ready(function () {
@@ -139,18 +141,23 @@ function SearchArea() {
                     marginBottom: "30px",
                     borderRadius: "23px",
                   }}
-                  onClick={() =>
-                    navigate("/DestCheck", {
-                      state: {
-                        endName: item.name,
-                        endLat: item.lat,
-                        endLon: item.lon,
-                        startLat: startLat,
-                        startLon: startLon,
-                        startName: startName,
-                      },
-                    })
-                  }
+                  onClick={() => {
+                    clickCount1 = clickCount1 + 1;
+                    if (clickCount1 == 1) {
+                      TTS.testFun(`${item.name}`);
+                    } else if (clickCount1 == 2) {
+                      navigate("/DestCheck", {
+                        state: {
+                          endName: item.name,
+                          endLat: item.lat,
+                          endLon: item.lon,
+                          startLat: startLat,
+                          startLon: startLon,
+                          startName: startName,
+                        },
+                      });
+                    }
+                  }}
                 >
                   <p
                     style={{
