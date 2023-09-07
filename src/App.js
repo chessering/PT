@@ -24,18 +24,6 @@ import Intro4 from "./pages/Intro4";
 import WalkNavigation from "./pages/WalkNavigation";
 import TTS from "./pages/TTS";
 import RouteSummary from "./components/ODsay/RouteSummary";
-import LoadingPage from "./pages/LoadingPage";
-import TransportMap from "./components/ODsay/TransportMap";
-import Content from "./components/Content";
-import RouteWalkImage from "./pages/RouteWalkImage";
-import RouteWalkPage from "./pages/RouteWalkPage";
-import Caution from "./pages/Caution";
-import NotCaution from "./pages/NotCaution";
-import TakePhotoAgain from "./pages/TakePhotoAgain";
-import PhotoOrReport from "./pages/PhotoOrReport";
-import AdditionalReport from "./pages/AdditionalReport";
-import BrailleBlockCaution from "./pages/BrailleBlockCaution";
-
 
 function App() {
   return (
@@ -66,17 +54,6 @@ function App() {
           <Route path="/WalkNavigation" element={<WalkNavigation />} />
           <Route path="/TTS" element={<TTS />} />
           <Route path="/RouteSummary" element={<RouteSummary />} />
-          <Route path="/TransportMap" element={<TransportMap/>}/>
-          <Route path="/Content" element={<Content/>}/>
-          <Route path="/RouteWalkImage" element={<RouteWalkImage/>}/>
-          <Route path="/RouteWalkPage" element={<RouteWalkPage/>}/>
-          <Route path="/LoadingPage" element={<LoadingPage/>}/>
-          <Route path="/Caution" element={<Caution/>}/>
-          <Route path="/NotCaution" element={<NotCaution/>}/>
-          <Route path="/TakePhotoAgain" element={<TakePhotoAgain/>}/>
-          <Route path="/PhotoOrReport" element={<PhotoOrReport/>}/>
-          <Route path="/AdditionalReport" element={<AdditionalReport/>}/>
-          <Route path="/BrailleBlockCaution" element={<BrailleBlockCaution/>}/>
         </Routes>
       </BrowserRouter>
     </div>

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import $ from "jquery";
 import "../components/NavigateContent.css";
+import * as TTS from "./TTS";
 window.$ = $;
 /*global Tmapv2 */
 var map;
@@ -15,16 +16,36 @@ function Map() {
   const boardCount = location.state.boardCount;
   const totalTime = (location.state.currentTotalTime / 60).toFixed(0);
   const totalDistance = (location.state.currentTotalDistance / 1000).toFixed(1);
-  var features = location.state.features;
+  const features = location.state.features;
   var marker_s, marker_e;
 
   var drawInfoArr = [];
   var resultdrawArr = [];
   const [data, setData] = useState([]);
-
+  let clickCount1 = 0,
+    clickCount2 = 0;
+  function handleClickCountEvent1() {
+    clickCount1 = clickCount1 + 1;
+    if (clickCount1 == 1) {
+      TTS.testFun("초기화면으로 돌아가는 버튼입니다.");
+    } else if (clickCount1 == 2) {
+      navigate("/FindRoute");
+    }
+  }
+  function handleClickCountEvent2() {
+    clickCount2 = clickCount2 + 1;
+    if (clickCount2 == 1) {
+      TTS.testFun("안내 시작 버튼입니다.");
+    } else if (clickCount2 == 2) {
+      TTS.testFun("안내를 시작합니다.");
+      navigate("/Pg1", {
+        state: { features: features },
+      });
+    }
+  }
   useEffect(() => {
     function initTmap() {
-      console.log("map");
+      console.log(features);
       // 1. 지도 띄우기
       map = new Tmapv2.Map("map_div", {
         center: new Tmapv2.LatLng(
@@ -33,7 +54,7 @@ function Map() {
         ),
         width: "340px",
         height: "430px",
-        zoom: 12,
+        zoom: 14,
         zoomControl: true,
         scrollwheel: true,
       });
@@ -203,14 +224,16 @@ function Map() {
           <button
             className="StartBtn"
             onClick={() => {
-              navigate("/FindRoute");
+              handleClickCountEvent1();
             }}
           >
             첫 화면으로
           </button>
           <button
             className="NavigateStartBtn"
-            onClick={() => navigate("/WalkNavigation")}
+            onClick={() => {
+              handleClickCountEvent2();
+            }}
           >
             안내 시작
           </button>

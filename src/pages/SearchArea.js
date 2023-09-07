@@ -2,12 +2,15 @@ import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import $ from "jquery";
 import "../components/SearchArea.css";
+import * as TTS from "./TTS";
+
 window.$ = $;
 /*global Tmapv2 */
 
 function SearchArea() {
   const [markerArr, setMarkerArr] = useState([]);
   const navigate = useNavigate();
+  let clickCount1 = 0;
   const [searchKeyword, setSearchKeyword] = useState("");
   const [list, setList] = useState([]);
 
@@ -136,15 +139,20 @@ function SearchArea() {
                     marginBottom: "30px",
                     borderRadius: "23px",
                   }}
-                  onClick={() =>
-                    navigate("/StartCheck", {
-                      state: {
-                        startName: item.name,
-                        startLat: item.lat,
-                        startLon: item.lon,
-                      },
-                    })
-                  }
+                  onClick={() => {
+                    clickCount1 = clickCount1 + 1;
+                    if (clickCount1 == 1) {
+                      TTS.testFun(`${item.name}`);
+                    } else if (clickCount1 == 2) {
+                      navigate("/StartCheck", {
+                        state: {
+                          startName: item.name,
+                          startLat: item.lat,
+                          startLon: item.lon,
+                        },
+                      });
+                    }
+                  }}
                 >
                   <p
                     style={{

@@ -1,23 +1,19 @@
 import "../components/page.css";
 import * as TTS from "./TTS";
 import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
 function Intro3() {
   const navigate = useNavigate();
-  function MovePage() {
+  useEffect(() => {
+    TTS.testFun("한 번 터치하면 음성 안내를 들을 수 있어요.");
     setTimeout(function () {
       navigate("/Intro4");
     }, 5000);
-  }
+  });
+
   return (
-    <div
-      className="startPage"
-      style={{ position: "relative" }}
-      onClick={() => {
-        TTS.testFun("한 번 터치하면 음성 안내를 들을 수 있어요.");
-        MovePage();
-      }}
-    >
+    <div className="startPage" style={{ position: "relative" }}>
       <div>
         <svg
           xmlns="http://www.w3.org/2000/svg"

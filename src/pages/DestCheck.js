@@ -1,16 +1,21 @@
 import "../components/CheckPage.css";
 import { useNavigate, useLocation } from "react-router-dom";
-
+import * as TTS from "./TTS";
+import { useEffect } from "react";
 function DestCheck() {
   const navigate = useNavigate();
   const location = useLocation();
-  const startName = location.state.startName;
   const endName = location.state.endName;
   const startLat = location.state.startLat;
   const startLon = location.state.startLon;
   const endLat = location.state.endLat;
   const endLon = location.state.endLon;
-
+  const startName = location.state.startName;
+  let clickCount1 = 0;
+  let clickCount2 = 0;
+  useEffect(() => {
+    TTS.testFun("입력한 정보가 맞나요?");
+  });
   return (
     <div className="CheckPage">
       <div className="InputAndButton">
@@ -39,35 +44,43 @@ function DestCheck() {
       <div className="Btns">
         <div
           className="YesBtn"
-          onClick={() =>
-            navigate("/ChooseVehicle", {
-              state: {
-                startLat: startLat,
-                startLon: startLon,
-                endLat: endLat,
-                endLon: endLon,
-                startName: startName,
-                endName: endName,
-              },
-            })
-          }
+          onClick={() => {
+            clickCount1 = clickCount1 + 1;
+            if (clickCount1 == 1) {
+              TTS.testFun("네 버튼입니다.");
+            } else if (clickCount1 == 2) {
+              navigate("/ChooseVehicle", {
+                state: {
+                  startLat: startLat,
+                  startLon: startLon,
+                  endLat: endLat,
+                  endLon: endLon,
+                  startName: startName,
+                  endName: endName,
+                },
+              });
+            }
+          }}
         >
           네
         </div>
         <div
           className="NoBtn"
-          onClick={() =>
-            navigate("/DestInput", {
-              state: {
-                startLat: startLat,
-                startLon: startLon,
-                endLat : endLat,
-                endLon : endLon,
-                startName: startName,
-                endName: endName,
-              },
-            })
-          }
+          onClick={() => {
+            clickCount2 = clickCount2 + 1;
+            if (clickCount2 == 1) {
+              TTS.testFun("아니요 버튼입니다.");
+            } else if (clickCount1 == 2) {
+              navigate("/DestInput", {
+                state: {
+                  startLat: startLat,
+                  startLon: startLon,
+                  startName: startName,
+                  endName: endName,
+                },
+              });
+            }
+          }}
         >
           아니요
         </div>

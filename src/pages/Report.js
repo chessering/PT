@@ -37,9 +37,11 @@ function Report() {
     const file = e.target.files[0];
     if (file) {
       const reader = new FileReader();
+      let imageUrl; 
       reader.onload = (event) => {
-        const imageUrl = event.target.result;
-        console.log("선택된 이미지 URL: ", imageUrl);
+      imageUrl = event.target.result;
+      //console.log("선택된 이미지 URL: ", imageUrl);
+
         // 이제 imageUrl을 상태나 컴포넌트의 데이터에 저장하거나 활용할 수 있습니다.
       };
     reader.readAsDataURL(file);
