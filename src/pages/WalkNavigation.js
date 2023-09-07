@@ -1,6 +1,142 @@
 import "../components/WalkNavigation.css";
+import React, { useEffect, useState } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
+import * as TTS from "./TTS";
 
 function WalkNavigation() {
+  const [lat, setLat] = useState(0);
+  const [long, setLong] = useState(0);
+  const navigate = useNavigate();
+  var navi = 1; // 횡단보도:0, 직진:1, 좌회전:2, 우회전:3, 계단:4, 경사로:5
+  const location = useLocation();
+  var features = location.state.features;
+  function getDistance(lat1, lng1, lat2, lng2) {
+    function deg2rad(deg) {
+      return deg * (Math.PI / 180);
+    }
+
+    var R = 6371; // Radius of the earth in km
+    var dLat = deg2rad(lat2 - lat1); // deg2rad below
+    var dLon = deg2rad(lng2 - lng1);
+    var a =
+      Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+      Math.cos(deg2rad(lat1)) *
+        Math.cos(deg2rad(lat2)) *
+        Math.sin(dLon / 2) *
+        Math.sin(dLon / 2);
+    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    var d = R * c; // Distance in km
+    return d;
+  }
+
+  async function getLocation() {
+    return new Promise((resolve, reject) => {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+          function (position) {
+            setLat(position.coords.latitude);
+            setLong(position.coords.longitude);
+            resolve([position.coords.latitude, position.coords.longitude]);
+          },
+          function (error) {
+            console.error(error);
+            reject(error);
+          }
+        );
+      } else {
+        console.log("GPS를 지원하지 않습니다");
+        reject("GPS를 지원하지 않습니다");
+      }
+    });
+  }
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const result = await getLocation();
+        // 이제 여기에서 lat 및 long 상태를 사용할 수 있습니다.
+        setLat(result[0]);
+        setLong(result[1]);
+      } catch (error) {
+        // 오류 처리
+        console.error("오류 발생:", error);
+      }
+    }
+    var AudioContext;
+    var audioContext;
+    function dd() {
+      navigator.mediaDevices
+        .getUserMedia({ audio: true })
+        .then(() => {
+          AudioContext = window.AudioContext || window.webkitAudioContext;
+          audioContext = new AudioContext();
+        })
+        .catch((e) => {
+          console.error(`Audio permissions denied: ${e}`);
+        });
+    }
+    dd();
+    console.log(features);
+    // setInterval(() => {
+    //   getLocation();
+    // }, 10000);
+  }, [lat, long]);
+  // if (lat == 0 || long == 0) {
+  //   return null;
+  // }
+
+  for (let i = 0; i < features.length; i += 2) {
+    TTS.testFun(`${features[i].properties.description}하세요.`);
+    console.log(features[0].properties.description);
+    console.log(
+      getDistance(
+        lat,
+        long,
+        features[2].geometry.coordinates[1],
+        features[2].geometry.coordinates[0]
+      )
+    );
+    while (1) {
+      if (lat != 0 && i < features.length - 2) {
+        if (
+          getDistance(
+            lat,
+            long,
+            features[i + 2].geometry.coordinates[1],
+            features[i + 2].geometry.coordinates[0]
+          ) <= 0.005
+        ) {
+          if (features[i + 2].properties.facilityType == "15") {
+            navi = 0;
+          } else if (features[i + 2].properties.turnType == "11") {
+            navi = 1;
+          } else if (
+            features[i + 2].properties.turnType == "12" ||
+            features[i + 2].properties.turnType == "16" ||
+            features[i + 2].properties.turnType == "17"
+          ) {
+            navi = 2;
+          } else if (
+            features[i + 2].properties.turnType == "13" ||
+            features[i + 2].properties.turnType == "18" ||
+            features[i + 2].properties.turnType == "19"
+          ) {
+            navi = 3;
+          } else if (
+            features[i + 2].properties.turnType == "127" ||
+            features[i + 2].properties.turnType == "129"
+          ) {
+            navi = 4;
+          } else if (features[i + 2].properties.turnType == "128") {
+            navi = 5;
+          } else {
+            navi = 1;
+          }
+          break;
+        }
+      }
+      setTimeout(() => console.log("30초 후에 실행됨"), 30000);
+    }
+  }
   return (
     <div className="WalkNavigation">
       <div className="Sign"></div>

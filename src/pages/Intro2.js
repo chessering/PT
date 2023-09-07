@@ -1,24 +1,21 @@
 import "../components/page.css";
 import * as TTS from "./TTS";
 import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
 function Intro2() {
   const navigate = useNavigate();
-  function MovePage() {
+  useEffect(() => {
+    TTS.testFun(
+      "지금부터 음향 신호기를 이용한 안전한 길 찾기와 모두의 안전을 위한 신고 서비스를 도와드릴게요."
+    );
     setTimeout(function () {
       navigate("/Intro3");
-    }, 6000);
-  }
+    }, 7000);
+  });
+
   return (
-    <div
-      className="startPage"
-      onClick={() => {
-        TTS.testFun(
-          "지금부터 음향 신호기를 이용한 안전한 길 찾기와 모두의 안전을 위한 신고 서비스를 도와드릴게요."
-        );
-        MovePage();
-      }}
-    >
+    <div className="startPage">
       <p
         style={{
           textAlign: "center",
