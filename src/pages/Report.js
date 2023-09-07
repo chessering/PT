@@ -1,9 +1,38 @@
 import "../components/Report.css";
 import { useNavigate } from "react-router-dom";
+import { useState } from 'react'; 
 import React from "react";
+import axios from 'axios';
+import * as TTS from "./TTS";
 
 function Report() {
   const navigate = useNavigate();
+  const [visible, setVisible] = useState(false);
+
+  let photoId;
+  let stat;
+
+  let clickCount1 = 0,
+    clickCount2 = 0;
+  function handleClickCountEvent1() {
+    clickCount1 = clickCount1 + 1;
+    if (clickCount1 == 1 && !visible) {
+      TTS.testFun("카메라로 이동하는 버튼입니다.");
+      setVisible(!visible);
+    } 
+  }
+
+  function handleClickCountEvent2() {
+    clickCount2 = clickCount2 + 1;
+    if (clickCount2 == 1) {
+      TTS.testFun("지도로 이동하는 버튼입니다.");
+    }
+    else if (clickCount2 == 2) {
+      navigate("/ChooseInput");
+    }
+  }
+  
+
   const handleImageSelect = (e) => {
     const file = e.target.files[0];
     if (file) {
@@ -13,18 +42,34 @@ function Report() {
         console.log("선택된 이미지 URL: ", imageUrl);
         // 이제 imageUrl을 상태나 컴포넌트의 데이터에 저장하거나 활용할 수 있습니다.
       };
-      reader.readAsDataURL(file);
+    reader.readAsDataURL(file);
+    console.log(reader.result);
+    let body = new FormData();
+    
+
+    body.append("photo", file,`${Date.now()}`)
+    console.log(body);
+    axios.post('http://safe-roadmap-prod-env.eba-56tfx8tr.ap-northeast-2.elasticbeanstalk.com/photo/analysis?x=127.254424&y=37.24141414',body)
+      .then((response) => {
+        console.log(response);
+        
+        photoId = response.data.result.postPhotoResult;
+        stat = response.data.result.predictResult.displayName;
+        console.log(photoId);
+        console.log(stat);
+      })
     }
   };
   return (
     <div className="Report">
       <div className="Buttons">
-        <button className="Camera">
-          <label htmlFor="file">
+        <div className="Camera" style={{marginLeft: "40px"}}onClick={() => {handleClickCountEvent1()}}>
+          {visible && <label htmlFor="file">
+            <div>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="150"
-              height="190"
+              height="210"
               viewBox="0 0 145 122"
               fill="none"
             >
@@ -41,21 +86,47 @@ function Report() {
                 fill="#FC6565"
               />
             </svg>
+            <br/>
             <div className="btn-upload">카메라로 이동</div>
-          </label>
-          <input
+            <input
             type="file"
             name="file"
             id="file"
             capture="camera"
             onChange={(e) => {
               handleImageSelect(e);
-              navigate("/ReportComplete");
+              navigate('/LoadingPage', {state: {
+                id : {photoId},
+                stat : {stat},
+              }});
             }}
             style={{ display: "none" }}
           />
-        </button>
-        <button className="Gallery" onClick={() => navigate("/ChooseInput")}>
+          </div>
+          </label>
+          }
+           {!visible && (
+            <div>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="210"
+                height="230"
+                viewBox="0 0 210 197"
+                fill="none"
+              >
+                <path
+                  d="M105.608 54.0248V28M139.032 63.3222L152.171 40.7841M157.242 85.7567L180 72.7443M72.6446 63.3222L59.5055 40.7841M52.7577 85.7567L30 72.7443M151.71 168.625V158.58C151.71 153.537 147.582 149.449 142.49 149.449H68.7259C63.6336 149.449 59.5055 153.537 59.5055 158.58V168.625H151.71ZM136.957 149.449V111.097C136.957 95.967 124.573 83.7021 109.296 83.7021H100.998C85.7206 83.7021 73.3362 95.967 73.3362 111.097V149.449H136.957Z"
+                  stroke="#FC6565"
+                  strokeWidth="15"
+                  strokeLinecap="round"
+                />
+              </svg>
+              <br />
+              신고하기
+            </div>
+          )}
+        </div>
+        <button className="Gallery" onClick={handleClickCountEvent2} >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="150"

@@ -13,7 +13,9 @@ function Intro2() {
     <div
       className="startPage"
       onClick={() => {
-        TTS.testFun("정해야함");
+        TTS.testFun(
+          "지금부터 음향 신호기를 이용한 안전한 길 찾기와 모두의 안전을 위한 신고 서비스를 도와드릴게요."
+        );
         MovePage();
       }}
     >

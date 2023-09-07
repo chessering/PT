@@ -3,7 +3,9 @@ import "../components/WalkNavigation.css";
 function WalkNavigation() {
   return (
     <div className="WalkNavigation">
-      <div className="Sign"></div>
+      <div className="Sign">
+        
+      </div>
       <div className="footer">
         <div className="Informations">
           남은 시간 &emsp; &emsp; &nbsp;&nbsp;분

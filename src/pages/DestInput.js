@@ -11,6 +11,7 @@ function SearchArea() {
   const location = useLocation();
   const [searchKeyword, setSearchKeyword] = useState("");
   const [list, setList] = useState([]);
+  const startName = location.state.startName;
   const startLat = location.state.startLat;
   const startLon = location.state.startLon;
 
@@ -143,7 +144,8 @@ function SearchArea() {
                   onClick={() =>
                     navigate("/DestCheck", {
                       state: {
-                        name: item.name,
+                        startName : startName,
+                        endName: item.name,
                         startLat: startLat,
                         startLon: startLon,
                         endLat: item.lat,

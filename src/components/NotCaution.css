@@ -1,0 +1,69 @@
+.NotCaution {
+    display: flex;
+    flex-direction: column;
+    width: 390px;
+    height: 844px;
+    text-align: center;
+    align-items:center;
+    justify-content: center;
+  
+    background: #09182e;
+    color: #172A46;
+    text-align: center;
+    font-family: EliceDigitalBaeum-bd;
+    font-size: 35px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+  }
+  .Report {
+    display: flex;
+    flex-direction: column;
+    width: 390px;
+    height: 844px;
+    text-align: center;
+  
+    background: #09182e;
+  }
+  @media all and (max-width: 1024px) {
+    /*브라우저 창 width가 1024px보다 작아지는 순간부터 적용
+          태블릿*/
+    .NotCaution {
+      width: 800px;
+    }
+  }
+  @media all and (max-width: 768px) {
+    /*브라우저 창 width가 768px보다 작아지는 순간부터 적용
+          모바일*/
+    .NotCaution {
+      width: 360px;
+    }
+  }
+  @media all and (min-width: 768px) {
+    /*브라우저 창 width가 768px보다 커지는 순간부터 적용
+          태블릿*/
+    .NotCaution {
+      width: 900px;
+    }
+  }
+  @media all and (min-width: 1024px) {
+    /*브라우저 창 width가 1024px보다 커지는 순간부터 적용
+          데스크탑*/
+    .NotCaution {
+      width: 400px;
+    }
+  }
+
+.NotCaution .NotCautionBtn {
+    border-radius: 23px;
+    display: flex;
+    width: 314px;
+    height: 317px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0;
+    background: #FFF;
+    box-shadow: 5px 7px 20px 0px rgba(0, 0, 0, 0.25);
+
+}

@@ -1,5 +1,22 @@
+import { useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
 import "../components/ReportComplete.css";
 function ReportComplete() {
+  const navigate = useNavigate();
+
+  const timeout = () => {
+		setTimeout(() => {
+			navigate('/AdditionalReport');
+		}, 2000);
+	};
+	useEffect(() => {
+		timeout();
+		return () => {
+			clearTimeout(timeout);
+		};
+	}); 
+
+
   return (
     <div className="ReportComplete">
       <div className="Mark">

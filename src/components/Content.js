@@ -9,7 +9,6 @@ function Content() {
 
   return (
     <div className="Content">
-      <div>1</div>
       <div className="Information">
         <text>남은 시간 &emsp; &emsp; &emsp; &nbsp;{time}분 </text>
         <br />
@@ -28,13 +27,13 @@ function Content() {
       <button className="PauseBtn">
         <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100" fill="none">
           <rect width="100" height="100" rx="23" fill="#172A46"/>
-          <path d="M32 21V79M69 21V79" stroke="white" stroke-width="10" stroke-linecap="round"/>
+          <path d="M32 21V79M69 21V79" stroke="white" strokeWidth="10" strokeLinecap="round"/>
         </svg>
       </button>
       <button className="ObstacleReportBtn">
         <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100" fill="none">
           <rect width="100" height="100" rx="23" fill="#172A46"/>
-          <path d="M49.9005 31.1039V20M64.3284 35.0708L70 25.4545M35.6716 35.0708L30 25.4545M69.801 80V75.7143C69.801 73.5625 68.019 71.8182 65.8209 71.8182H33.9801C31.782 71.8182 30 73.5625 30 75.7143V80H69.801ZM63.4328 71.8182V55.4545C63.4328 48.9993 58.087 43.7662 51.4925 43.7662H47.9104C41.316 43.7662 35.9702 48.9993 35.9702 55.4545V71.8182H63.4328Z" stroke="white" stroke-width="10" stroke-linecap="round"/>
+          <path d="M49.9005 31.1039V20M64.3284 35.0708L70 25.4545M35.6716 35.0708L30 25.4545M69.801 80V75.7143C69.801 73.5625 68.019 71.8182 65.8209 71.8182H33.9801C31.782 71.8182 30 73.5625 30 75.7143V80H69.801ZM63.4328 71.8182V55.4545C63.4328 48.9993 58.087 43.7662 51.4925 43.7662H47.9104C41.316 43.7662 35.9702 48.9993 35.9702 55.4545V71.8182H63.4328Z" stroke="white" strokeWidth="10" strokeLinecap="round"/>
         </svg>
       </button>
     </div>

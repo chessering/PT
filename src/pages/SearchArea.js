@@ -11,8 +11,6 @@ function SearchArea() {
   const [searchKeyword, setSearchKeyword] = useState("");
   const [list, setList] = useState([]);
 
-
-
   const handleSearchClick = () => {
     $("#btn_select").ready(function () {
       var searchKeyword = $("#searchKeyword").val();
@@ -87,7 +85,7 @@ function SearchArea() {
   };
 
   return (
-    <div className="basePage" style={{overflowY : "scroll"}}>
+    <div className="basePage" style={{ overflowY: "scroll" }}>
       <div className="InputAndButton">
         <svg
           className="Mark"
@@ -141,46 +139,52 @@ function SearchArea() {
                   onClick={() =>
                     navigate("/StartCheck", {
                       state: {
-                        name: item.name,
+                        startName: item.name,
                         startLat: item.lat,
                         startLon: item.lon,
                       },
                     })
                   }
                 >
-                    <p style={{
-                    marginTop: "15px",
-                    color: "#172A46",
-                    fontFamily: "EliceDigitalBaeum-bd",
-                    fontSize: "30px",
-                    fontWeight: "1000",
-                    textAlign: "left",
-                    marginBottom: "15px",
-                  }}>{item.name}</p>
-                  <p style={{
-                    marginTop: "0px",
-                    color: "#172A46",
-                    fontFamily: "EliceDigitalBaeum-bd",
-                    fontSize: "20px",
-                    fontWeight: "0",
-                    textAlign: "left"
-                  }}> {item.address} </p>
-                  <p style={{
-                    color: "#172A46",
-                    fontFamily: "EliceDigitalBaeum-bd",
-                    fontSize: "20px",
-                    fontStyle: "normal",
-                    fontWeight: "0",
-                    textAlign: "left"
-                  }}> {item.bizName} </p>
-                  <p style={{
-                    color: "#172A46",
-                    fontFamily: "EliceDigitalBaeum-bd",
-                    fontSize: "20px",
-                    fontWeight: "0",
-                    textAlign: "left"
-                  }}> 거리 </p>
-                  
+                  <p
+                    style={{
+                      marginTop: "15px",
+                      color: "#172A46",
+                      fontFamily: "EliceDigitalBaeum-bd",
+                      fontSize: "30px",
+                      fontWeight: "1000",
+                      textAlign: "left",
+                      marginBottom: "15px",
+                    }}
+                  >
+                    {item.name}
+                  </p>
+                  <p
+                    style={{
+                      marginTop: "0px",
+                      color: "#172A46",
+                      fontFamily: "EliceDigitalBaeum-bd",
+                      fontSize: "20px",
+                      fontWeight: "0",
+                      textAlign: "left",
+                    }}
+                  >
+                    {" "}
+                    {item.address}{" "}
+                  </p>
+                  <p
+                    style={{
+                      color: "#172A46",
+                      fontFamily: "EliceDigitalBaeum-bd",
+                      fontSize: "20px",
+                      fontStyle: "normal",
+                      fontWeight: "0",
+                      textAlign: "left",
+                    }}
+                  >
+                    {" "}
+                    {item.bizName}{" "}
+                  </p>
                 </button>
                 <br />
               </React.Fragment>

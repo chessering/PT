@@ -67,7 +67,7 @@ function RouteSummary() {
                                     :
                                     (index == 0 ?
                                         <svg xmlns="http://www.w3.org/2000/svg" width="29" height="37" viewBox="0 0 29 37" fill="none">
-                                        <path fill-rule="evenodd" clip-rule="evenodd" d="M14.5 37C14.5 37 29 23.2843 29 15C29 6.71573 23.2843 0 15 0C6.71573 0 0 6.71573 0 15C0 23.2843 14.5 37 14.5 37ZM14.5 20C17.5376 20 20 17.5375 20 14.5C20 11.4624 17.5376 8.99997 14.5 8.99997C11.4624 8.99997 9 11.4624 9 14.5C9 17.5375 11.4624 20 14.5 20Z" fill="white"/>
+                                        <path fillRule="evenodd" clipRule="evenodd" d="M14.5 37C14.5 37 29 23.2843 29 15C29 6.71573 23.2843 0 15 0C6.71573 0 0 6.71573 0 15C0 23.2843 14.5 37 14.5 37ZM14.5 20C17.5376 20 20 17.5375 20 14.5C20 11.4624 17.5376 8.99997 14.5 8.99997C11.4624 8.99997 9 11.4624 9 14.5C9 17.5375 11.4624 20 14.5 20Z" fill="white"/>
                                         </svg>
                                         :
                                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="40" viewBox="0 0 20 40" fill="none">
@@ -92,14 +92,14 @@ function RouteSummary() {
                         </div>
                         
                         <div className="text-wrap">
-                        <p className="text">{}</p>
                         <p className="text">
                             {
                                 item.trafficType == 3 ? 
                                 <div>도보 <br/>{item.distance}m 이동</div>
                                 :
                                 <div>정류장 이동</div>
-                            }</p>
+                            }
+                            </p>
                         </div>
                     </div>
                 );
@@ -118,7 +118,6 @@ function RouteSummary() {
                     </div>
                 </div>
             </div>
-            
             
             
         </div>

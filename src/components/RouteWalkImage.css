@@ -1,0 +1,18 @@
+.Container {
+    display: flex;
+    width: 314px;
+    height: 317px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: #FFF;
+}
+.WarningContainer {
+    display: flex;
+    width: 314px;
+    height: 317px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: #FAFF00;
+}

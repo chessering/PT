@@ -2,7 +2,7 @@
   flex-wrap: wrap;
   align-content: stretch;
   width: 390px;
-  height: 844px;
+  height: 422px;
   text-align: center;
   margin-top: 422px;
   flex-shrink: 0;
@@ -16,7 +16,6 @@
   font-weight: 600;
 }
 .Content .Information {
-  margin-top: 422px;
   margin-bottom: 30px;
   line-height: 2;
 }

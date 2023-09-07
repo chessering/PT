@@ -86,7 +86,7 @@
 // export default DrawMap;
 
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import axios from "axios";
 import $ from "jquery";
@@ -98,47 +98,62 @@ function TransportMap() {
   console.log(location.state);
   var drawInfoArr = [];
   var resultdrawArr = [];
-
+  const [totalTime, setTotalTime] = useState();
+  const [totalDistance, setTotalDistance] = useState();
+  const [totaltransit, setTotaltransit] = useState();
+  const [board, setboard] = useState();
 
   useEffect(() => {
     const searchPubTransPathAxios = async () => {
       // 출발지와 도착지 좌표
-      const sx = 126.93737555322481;
-      const sy = 37.55525165729346;
-      const ex = 126.88265238619182;
-      const ey = 37.481440035175375;
-
+      const SY = location.state.startLat;
+      const SX = location.state.startLon;
+      const EY = location.state.endLat;
+      const EX = location.state.endLon;
+      const type = location.state.type;
+      const startName = location.state.startName;
+      const endName = location.state.endName;
+      console.log(SX, SY, EX, EY, startName, endName, type);
       var map = new Tmapv2.Map("map", {
-        center: new Tmapv2.LatLng(37.5652045, 126.98702028),
-        width: "100%",
+        center: new Tmapv2.LatLng((SY + EY) / 2,(SX + EX) / 2),
+        width: "390px",
         height: "400px",
-        zoom: 12,
+        zoom: 11,
         zoomControl: true,
         scrollwheel: true,
       });
-
-      // ODsay API 키
-
-      // ODsay API 엔드포인트
-      const url = `https://api.odsay.com/v1/api/searchPubTransPathT?SX=${sx}&SY=${sy}&EX=${ex}&EY=${ey}&apiKey=P7e7V2R2hHX%2BPv4%2BFlgsfHHJ5FvnKvJ%2FER5h0qInTgw`;
+      
 
       try {
-        const response = await axios.get(url);
+        const response = await axios.get(`http://safe-roadmap-prod-env.eba-56tfx8tr.ap-northeast-2.elasticbeanstalk.com/pathfinding/transport?SX=${SX}&SY=${SY}&EX=${EX}&EY=${EY}&type=${type}&SName=${startName}&EName=${endName}`);
+        const data = response.data;  
+        var info = data.result.info;
+        console.log(info);
+        setTotalTime(info.totalTime);
+        setTotalDistance(info.totalDistance);
+        setTotaltransit((info.totalStationCount > 1) ? info.busTransitCount + info.subwayTransitCount : 0);
+        var ped = data.result.ped;
+        var boardcount = 0;
+        for (var p in ped) {
+          if (ped[p].boardCount !== undefined)
+          boardcount += ped[p].boardCount;
+        }
+        setboard(boardcount);
+        
         if (response.status === 200) {
-          const data = response.data;
+          
 
           // 결과 데이터를 출력
-          console.log(data);
           const startPoint = {
-            x: location.state.startLat,
-            y: location.state.startLon,
+            x: SX,
+            y: SY,
           };
           const endPoint = {
-            x: location.state.endtLat,
-            y: location.state.endLon,
+            x: EX,
+            y: EY,
           };
   
-          const path = response.data.result.path[0];
+          
           // 출발지와 도착지 마커 추가
           const startMarker = new Tmapv2.Marker({
             position: new Tmapv2.LatLng(startPoint.y, startPoint.x),
@@ -154,7 +169,6 @@ function TransportMap() {
             map: map,
           });
           
-          console.log(path.info.mapObj);
 
           if (resultdrawArr.length > 0) {
             for (var i in resultdrawArr) {
@@ -163,37 +177,39 @@ function TransportMap() {
             resultdrawArr = [];
           }
           drawInfoArr = [];
-          // 경로 그리기
+          
 
-          var subPath = path.subPath;
+          var subPath = data.result.subPath;
 
           for (var key in subPath) {
+            var x = "";
+            var y = "";
             if (subPath[key].trafficType == 3) {
               if (key == 0) {
-                var latlng = new Tmapv2.Point(
-                  startPoint.x, startPoint.y
+                var latlng = new Tmapv2.LatLng(
+                  startPoint.y, startPoint.x
                 );
+                drawInfoArr.push(latlng);
+                x = startPoint.x;
+                y = startPoint.y;
               }
-              else {
-
+              else if (key == Object.values(subPath) - 1) {
+                var latlng = new Tmapv2.LatLng(
+                  endPoint.y, startPoint.x
+                );
+                drawInfoArr.push(latlng);
+                x = endPoint.x;
+                y = endPoint.y;
               }
-            }
-            var convertPoint = 
-              new Tmapv2.Projection.convertEPSG3857ToWGS84GEO(latlng);
-            var convertChange = new Tmapv2.LatLng(
-              convertPoint._lat,
-              convertPoint._lng
-            );
-            drawInfoArr.push(convertChange);
-
-            var markerImg = "";
+              else continue;
+              var markerImg = "";
               var size;
 
               if (key == 0) {
                 markerImg = "/upload/tmap/marker/pin_r_m_s.png";
                 size = new Tmapv2.Size(24, 38);
               }
-               else if (key == Object.values(subPath) - 1) {
+               else if (key == drawInfoArr.length - 1) {
                 //도착지 마커
                 markerImg = "/upload/tmap/marker/pin_r_m_e.png";
                 size = new Tmapv2.Size(24, 38);
@@ -203,21 +219,12 @@ function TransportMap() {
                 size = new Tmapv2.Size(8, 8);
               }
 
-              // 경로들의 결과값들을 포인트 객체로 변환
-              var latlon = new Tmapv2.Point(
-                
-              );
-
-              // 포인트 객체를 받아 좌표값으로 다시 변환
-              var convertPoint =
-                new Tmapv2.Projection.convertEPSG3857ToWGS84GEO(latlon);
-
               var routeInfoObj = {
                 markerImage: markerImg,
-                lng: convertPoint._lng,
-                lat: convertPoint._lat,
+                lng: x,
+                lat: y
               };
-
+    
               // Marker 추가
               var marker_p = new Tmapv2.Marker({
                 position: new Tmapv2.LatLng(routeInfoObj.lat, routeInfoObj.lng),
@@ -225,31 +232,66 @@ function TransportMap() {
                 iconSize: size,
                 map: map,
               });
-            
+            }
+            else {
+              const stations = subPath[key].passStopList.stations;
+              for (var j in stations) {
+                var latlng = new Tmapv2.LatLng(
+                  stations[j].y, stations[j].x
+                );
+                drawInfoArr.push(latlng);
+                x = stations[j].x;
+                y = stations[j].y;
+                var markerImg = "";
+              var size;
+
+              if (key == 0) {
+                markerImg = "/upload/tmap/marker/pin_r_m_s.png";
+                size = new Tmapv2.Size(24, 38);
+              }
+              else if (key == drawInfoArr.length - 1) {
+                //도착지 마커
+                markerImg = "/upload/tmap/marker/pin_r_m_e.png";
+                size = new Tmapv2.Size(24, 38);
+              } else {
+                //각 포인트 마커
+                markerImg = "http://topopen.tmap.co.kr/imgs/point.png";
+                size = new Tmapv2.Size(8, 8);
+              }
+
+              var routeInfoObj = {
+                markerImage: markerImg,
+                lng: x,
+                lat: y,
+              };
+    
+              // Marker 추가
+              var marker_p = new Tmapv2.Marker({
+                position: new Tmapv2.LatLng(routeInfoObj.lat, routeInfoObj.lng),
+                icon: routeInfoObj.markerImage,
+                iconSize: size,
+                map: map,
+              });
+              }
+              
+            }
+
           }
-
-
-
-          const points = path.info.mapObj.split(":");
-          const routePoints = points.map((point) => {
-            const [x, y] = point.split(",");
-            return new Tmapv2.LatLng(y, x);
-          });
   
           const route = new Tmapv2.Polyline({
-            path: routePoints,
+            path: drawInfoArr,
             strokeColor: "#DD0000",
             strokeWeight: 6,
             map: map,
           });
+          resultdrawArr.push(route);
         }
       } catch (error) {
         console.error("Error fetching data:", error);
       }
     };
     searchPubTransPathAxios();
-  }, [location.state]);
-
+  }, []);
   return (
     <div className="NavigateContent">
       <div className="MapBorder">
@@ -264,11 +306,11 @@ function TransportMap() {
       </div>
       <div className="footer">
         <div className="Informations">
-          예상 시간 &emsp; &emsp; &nbsp;&nbsp;분
-          <br />총 거리 &emsp; &emsp; &emsp; &nbsp;m
-          <br />환승 수 &emsp; &emsp; &emsp; &nbsp;번
+          예상 시간 &emsp; &emsp; &nbsp;&nbsp;{ totalTime } 분
+          <br />총 거리 &emsp; &emsp; &emsp; &nbsp;{totalDistance} m
+          <br />환승 수 &emsp; &emsp; &emsp; &nbsp;{totaltransit} 번
           <br />
-          횡단보도 수 &emsp; &nbsp; &nbsp;5개
+          횡단보도 수 &emsp; &nbsp; &nbsp; {board} 개
           <br />
         </div>
         <div className="Buttons">
