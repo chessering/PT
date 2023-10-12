@@ -38,7 +38,7 @@ function Map() {
       TTS.testFun("안내 시작 버튼입니다.");
     } else if (clickCount2 == 2) {
       TTS.testFun("안내를 시작합니다.");
-      navigate("/Pg1", {
+      navigate("/WalkNavigation", {
         state: { features: features },
       });
     }

@@ -2,15 +2,19 @@ import React, { useState } from "react";
 import "../components/ChooseInput.css";
 import * as TTS from "./TTS";
 import { useNavigate } from "react-router-dom";
-import getLocation from "../components/Location";
 import $ from "jquery";
 window.$ = $;
 /*global Tmapv2 */
 
 function ChooseInput() {
+  var lat, lon, name;
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(function (position) {
+      lat = position.coords.latitude;
+      lon = position.coords.longitude;
+    });
+  }
   const navigate = useNavigate();
-  let lon = 126.98702028;
-  let lat = 37.5652045;
   let clickCount1 = 0,
     clickCount2 = 0;
   function reverseGeo(lon, lat) {
@@ -88,11 +92,9 @@ function ChooseInput() {
           jibunAddr += " " + arrResult.buildingName;
         }
 
-        result = "새주소 : " + newRoadAddr + "</br>";
-        result += "지번주소 : " + jibunAddr + "</br>";
-        result += "위경도좌표 : " + lat + ", " + lon;
-
+        result += jibunAddr;
         console.log(result);
+        name = result;
       },
       error: function (request, status, error) {
         console.log(
@@ -113,7 +115,14 @@ function ChooseInput() {
     if (clickCount1 == 1) {
       TTS.testFun("현재위치를 출발지로 지정하는 버튼입니다.");
     } else if (clickCount1 == 2) {
-      navigate("/SearchArea");
+      reverseGeo(lon, lat);
+      navigate("/StartCheck", {
+        state: {
+          startName: name,
+          startLat: lat,
+          startLon: lon,
+        },
+      });
     }
   }
 
@@ -128,7 +137,10 @@ function ChooseInput() {
   return (
     <div className="ChooseInput">
       <div className="Buttons">
-        <button className="StartPointBtn" onClick={() => reverseGeo(lon, lat)}>
+        <button
+          className="StartPointBtn"
+          onClick={() => handleClickCountEvent1()}
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="150"

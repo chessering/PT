@@ -15,6 +15,7 @@ function StartCheck() {
   let clickCount1 = 0;
   let clickCount2 = 0;
   useEffect(() => {
+    console.log(startName);
     TTS.testFun("입력한 정보가 맞나요?");
   });
   return (
