@@ -49,6 +49,8 @@ function WalkNavigation() {
       }
     });
   }
+  var AudioContext;
+  var audioContext;
   useEffect(() => {
     async function fetchData() {
       try {
@@ -61,8 +63,6 @@ function WalkNavigation() {
         console.error("오류 발생:", error);
       }
     }
-    var AudioContext;
-    var audioContext;
     function dd() {
       navigator.mediaDevices
         .getUserMedia({ audio: true })
@@ -84,6 +84,16 @@ function WalkNavigation() {
   //   return null;
   // }
   async function setSign(i) {
+    AudioContext = window.AudioContext || window.webkitAudioContext;
+    audioContext = new AudioContext();
+    if (blob) {
+      window.URL.revokeObjectURL(blob);
+      blob = null;
+    }
+    if (audioContext) {
+      audioContext.close();
+      audioContext = null;
+    }
     let sel = "";
     console.log(i);
     blob = window.URL.revokeObjectURL(blob);
@@ -206,7 +216,7 @@ function WalkNavigation() {
       }
     }
   }
-  const si = setInterval(() => setSign(i), 60000);
+  const si = setInterval(() => setSign(i), 10000);
   return (
     <div className="WalkNavigation">
       <div className="Sign" id="Sign">

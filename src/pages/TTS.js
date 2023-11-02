@@ -1,7 +1,18 @@
 import $ from "jquery";
 window.$ = $;
+let isPlayingAudio = false;
 export function testFun(text) {
-  console.log(text);
+  if (isPlayingAudio) {
+    return; // 이미 음성이 재생 중이면 추가 호출을 막음
+  }
+
+  isPlayingAudio = true; // 음성 재생 중임을 표시
+
+  var audioFile = new Audio();
+  audioFile.onended = function () {
+    isPlayingAudio = false; // 재생이 종료되면 플래그를 다시 false로 설정
+  };
+
   var data = {
     voice: {
       languageCode: "ko-KR",
@@ -16,25 +27,14 @@ export function testFun(text) {
   };
   $.ajax({
     type: "POST",
-    url: "https://texttospeech.googleapis.com/v1/text:synthesize?key=AIzaSyDsQyaIDW8FI1i9uuF_NRWGMqaC5pfeyGI",
+    url: "https://texttospeech.googleapis.com/v1/text:synthesize?key=AIzaSyAJt6tKIsgCHl3e9FAzUDg3n9GT9o3Q66c",
     data: JSON.stringify(data),
     dataType: "JSON",
     contentType: "application/json; charset=UTF-8",
     success: function (res) {
-      //   $("#output").val(res.audioContent);
-      var audioFile = new Audio();
       let audioBlob = base64ToBlob(res.audioContent, "mp3");
-      // const link = document.createElement("a");
-      // link.href = window.URL.createObjectURL(audioBlob);
-      // link.setAttribute("download", "dd");
-      // document.body.appendChild(link);
-      // link.click();
-
       audioFile.src = window.URL.createObjectURL(audioBlob);
-
-      // console.log(audioFile.src);
       audioFile.playbackRate = 1; //재생속도
-
       audioFile.play();
     },
     error: function (request, status, error) {
@@ -42,7 +42,6 @@ export function testFun(text) {
     },
   });
 }
-
 export function base64ToBlob(base64, fileType) {
   let typeHeader = "data:application/" + fileType + ";base64,"; // base64 헤더 파일 유형 정의
   let audioSrc = typeHeader + base64;
