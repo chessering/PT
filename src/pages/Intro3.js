@@ -9,7 +9,7 @@ function Intro3() {
     TTS.testFun("한 번 터치하면 음성 안내를 들을 수 있어요.");
     setTimeout(function () {
       navigate("/Intro4");
-    }, 5000);
+    }, 6000);
   });
 
   return (

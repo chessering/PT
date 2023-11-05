@@ -9,7 +9,7 @@ function Intro4() {
     TTS.testFun("두 번 터치하면 선택할 수 있어요.");
     setTimeout(function () {
       navigate("/FindRoute");
-    }, 5000);
+    }, 6000);
   });
 
   return (

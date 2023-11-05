@@ -3,35 +3,32 @@ import * as TTS from "./TTS";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 function Intro1() {
-  // useEffect(() => {
-  //   let audio = new Audio("../Audio/intro1.mp3");
-  //   audio.muted = true;
-  //   audio.play();
-  // });
+  const navigate = useNavigate();
   var AudioContext;
   var audioContext;
-  function permiss() {
-    navigator.mediaDevices
-      .getUserMedia({ audio: true })
-      .then(() => {
-        AudioContext = window.AudioContext || window.webkitAudioContext;
-        audioContext = new AudioContext();
-      })
-      .catch((e) => {
-        console.error(`Audio permissions denied: ${e}`);
-      });
-  }
-  permiss();
-
+  useEffect(() => {
+    function permiss() {
+      navigator.mediaDevices
+        .getUserMedia({ audio: true })
+        .then(() => {
+          AudioContext = window.AudioContext || window.webkitAudioContext;
+          audioContext = new AudioContext();
+        })
+        .catch((e) => {
+          console.error(`Audio permissions denied: ${e}`);
+        });
+    }
+    permiss();
+  });
   function Audio() {
     TTS.testFun("안녕하세요. 시각장애인을 위한 길안내 서비스 새로입니다.");
     setTimeout(function () {
       navigate("/Intro2");
     }, 7000);
   }
-  const navigate = useNavigate();
+
   return (
-    <div className="startPage" onClick={Audio()}>
+    <div className="startPage" onClick={Audio}>
       <p
         style={{
           textAlign: "center",
