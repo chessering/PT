@@ -53,7 +53,7 @@ function App() {
           <Route path="/ReportComplete" element={<ReportComplete />} />
           <Route path="/WalkNavigation" element={<WalkNavigation />} />
           <Route path="/TTS" element={<TTS />} />
-          <Route path="/RouteSummary" element={<RouteSummary />} />
+          {/* <Route path="/RouteSummary" element={<RouteSummary />} /> */}
         </Routes>
       </BrowserRouter>
     </div>
