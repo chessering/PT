@@ -211,7 +211,7 @@ function TransportMap() {
     } else if (clickCount2 == 2) {
       TTS.testFun("안내를 시작합니다.");
       navigate("/RouteSummary", {
-        state: { features: features, info: location.state, totalTime:totalTime },
+        state: { features: features, inform: location.state.inform, info: location.state },
       });
     }
   }
@@ -255,14 +255,6 @@ function TransportMap() {
         var info = values_arr[0];
         console.log(info);
         totalTransit = (info.totalStationCount + info.busTransitCount > 1) ? info.busTransitCount + info.subwayTransitCount : 0;
-        console.log(totalTime, totalDistance, totalTransit);
-        
-        var ped = data.result.ped;
-        var boardcount = 0;
-        for (var p in ped) {
-          if (ped[p].boardCount !== undefined)
-          boardcount += ped[p].boardCount;
-        }
         
         if (response.status === 200) {
           
@@ -438,8 +430,8 @@ function TransportMap() {
           <br />
         </div>
         <div className="Buttons">
-          <button className="StartBtn" onClick={() => handleClickCountEvent1()}>첫 화면으로</button>
-          <button className="NavigateStartBtn" onClick = {() => handleClickCountEvent2()}>안내 시작</button>
+          <button className="StartBtn" onClick={() => {handleClickCountEvent1()}}>첫 화면으로</button>
+          <button className="NavigateStartBtn" onClick = {() => {handleClickCountEvent2()}}>안내 시작</button>
         </div>
       </div>
     </div>
