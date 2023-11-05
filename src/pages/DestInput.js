@@ -15,7 +15,16 @@ function SearchArea() {
   const startName = location.state.startName;
   const startLat = location.state.startLat;
   const startLon = location.state.startLon;
+
   let clickCount1 = 0;
+  function handleClickCountEvent() {
+    clickCount1 = clickCount1 + 1;
+    if (clickCount1 == 1) {
+      TTS.testFun("검색하기 버튼입니다.");
+    } else if (clickCount1 == 2) {
+      handleSearchClick();
+    }
+  }
 
   const handleSearchClick = () => {
     $("#btn_select").ready(function () {
@@ -36,6 +45,7 @@ function SearchArea() {
         },
         success: function (response) {
           var resultpoisData = response.searchPoiInfo.pois.poi;
+          var address = "";
 
           // 기존 마커, 팝업 제거
           if (markerArr.length > 0) {
@@ -60,6 +70,7 @@ function SearchArea() {
             );
 
             var bizName = resultpoisData[k].middleBizName;
+
             var lat = projectionCng._lat;
             var lon = projectionCng._lng;
 
@@ -90,7 +101,7 @@ function SearchArea() {
   };
 
   return (
-    <div className="basePage" style={{overflowY : "scroll"}}>
+    <div className="basePage" style={{ overflowY: "scroll" }}>
       <div className="InputAndButton">
         <svg
           className="Mark"
@@ -117,7 +128,7 @@ function SearchArea() {
           placeholder="목적지 입력"
           onChange={(e) => setSearchKeyword(e.target.value)}
         />
-        <button className="btn_select" onClick={handleSearchClick}>
+        <button className="btn_select" onClick={handleClickCountEvent}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             id="Outline"
@@ -161,39 +172,45 @@ function SearchArea() {
                     }
                   }}
                 >
-                    <p style={{
-                    marginTop: "15px",
-                    color: "#172A46",
-                    fontFamily: "EliceDigitalBaeum-bd",
-                    fontSize: "30px",
-                    fontWeight: "1000",
-                    textAlign: "left",
-                    marginBottom: "15px",
-                  }}>{item.name}</p>
-                  <p style={{
-                    marginTop: "0px",
-                    color: "#172A46",
-                    fontFamily: "EliceDigitalBaeum-bd",
-                    fontSize: "20px",
-                    fontWeight: "0",
-                    textAlign: "left"
-                  }}> {item.address} </p>
-                  <p style={{
-                    color: "#172A46",
-                    fontFamily: "EliceDigitalBaeum-bd",
-                    fontSize: "20px",
-                    fontStyle: "normal",
-                    fontWeight: "0",
-                    textAlign: "left"
-                  }}> {item.bizName} </p>
-                  <p style={{
-                    color: "#172A46",
-                    fontFamily: "EliceDigitalBaeum-bd",
-                    fontSize: "20px",
-                    fontWeight: "0",
-                    textAlign: "left"
-                  }}> 거리 </p>
-                  
+                  <p
+                    style={{
+                      marginTop: "15px",
+                      color: "#172A46",
+                      fontFamily: "EliceDigitalBaeum-bd",
+                      fontSize: "30px",
+                      fontWeight: "1000",
+                      textAlign: "left",
+                      marginBottom: "15px",
+                    }}
+                  >
+                    {item.name}
+                  </p>
+                  <p
+                    style={{
+                      marginTop: "0px",
+                      color: "#172A46",
+                      fontFamily: "EliceDigitalBaeum-bd",
+                      fontSize: "20px",
+                      fontWeight: "0",
+                      textAlign: "left",
+                    }}
+                  >
+                    {" "}
+                    {item.address}{" "}
+                  </p>
+                  <p
+                    style={{
+                      color: "#172A46",
+                      fontFamily: "EliceDigitalBaeum-bd",
+                      fontSize: "20px",
+                      fontStyle: "normal",
+                      fontWeight: "0",
+                      textAlign: "left",
+                    }}
+                  >
+                    {" "}
+                    {item.bizName}{" "}
+                  </p>
                 </button>
                 <br />
               </React.Fragment>

@@ -10,10 +10,18 @@ window.$ = $;
 function SearchArea() {
   const [markerArr, setMarkerArr] = useState([]);
   const navigate = useNavigate();
-  let clickCount1 = 0;
   const [searchKeyword, setSearchKeyword] = useState("");
   const [list, setList] = useState([]);
 
+  let clickCount1 = 0;
+  function handleClickCountEvent() {
+    clickCount1 = clickCount1 + 1;
+    if (clickCount1 == 1) {
+      TTS.testFun("검색하기 버튼입니다.");
+    } else if (clickCount1 == 2) {
+      handleSearchClick();
+    }
+  }
   const handleSearchClick = () => {
     $("#btn_select").ready(function () {
       var searchKeyword = $("#searchKeyword").val();
@@ -113,7 +121,7 @@ function SearchArea() {
           placeholder="출발지 입력"
           onChange={(e) => setSearchKeyword(e.target.value)}
         />
-        <button className="btn_select" onClick={handleSearchClick}>
+        <button className="btn_select" onClick={handleClickCountEvent}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             id="Outline"
