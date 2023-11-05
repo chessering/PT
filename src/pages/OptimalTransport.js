@@ -7,20 +7,13 @@ import axios from "axios";
 function OptimalTransport() {
   const navigate = useNavigate();
   const location = useLocation();
-  let inform;
-  var distance = 0;
-  var time = 0;
-  var board = 0;
+  var inform;
   const startName = location.state.startName;
   const endName = location.state.endName;
   const startLat = location.state.startLat;
   const startLon = location.state.startLon;
   const endLat = location.state.endLat;
   const endLon = location.state.endLon;
-  var features = null;
-
-  console.log(startLat);
-  console.log(startName);
 
   let clickCount1 = 0;
   function handleClickCountEvent1() {
@@ -30,15 +23,11 @@ function OptimalTransport() {
     } else if (clickCount1 == 2) {
       axios
         .get(
-          `http://safe-roadmap-prod-env.eba-56tfx8tr.ap-northeast-2.elasticbeanstalk.com/pathfinding/pedestrain?startX=${startLon}&startY=${startLat}&endX=${endLon}&endY=${endLat}&startName=${startName}&endName=${endName}&type=${0}`
+          `http://safe-roadmap-prod-env.eba-56tfx8tr.ap-northeast-2.elasticbeanstalk.com/pathfinding/transport?SX=${startLon}&SY=${startLat}&EX=${endLon}&EY=${endLat}&type=${0}`
         )
         .then((response) => {
-          inform = response.data;
+          inform = response.data.result;
           console.log(inform);
-          distance = response.data.result.currentTotalDistance;
-          time = response.data.result.currentTotalTime;
-          board = response.data.result.boardCount;
-          features = response.data.result.finalResult.features;
           navigate("/TransportMap", {
             state: {
               startLat: startLat,
@@ -46,11 +35,7 @@ function OptimalTransport() {
               endLat: endLat,
               endLon: endLon,
               type: 0,
-              inform : inform,
-              currentTotalDistance: distance,
-              currentTotalTime: time,
-              boardCount: board,
-              features: features,
+              inform: inform,
             },
           });
         })
@@ -68,11 +53,7 @@ function OptimalTransport() {
           `http://safe-roadmap-prod-env.eba-56tfx8tr.ap-northeast-2.elasticbeanstalk.com/pathfinding/pedestrain?startX=${startLon}&startY=${startLat}&endX=${endLon}&endY=${endLat}&startName=${startName}&endName=${endName}&type=${1}`
         )
         .then((response) => {
-          inform = response.data;
-          distance = response.data.result.currentTotalDistance;
-          time = response.data.result.currentTotalTime;
-          board = response.data.result.boardCount;
-          features = response.data.result.finalResult.features;
+          inform = response.data.result;
           navigate("/TransportMap", {
             state: {
               startLat: startLat,
@@ -81,10 +62,6 @@ function OptimalTransport() {
               endLon: endLon,
               type: 1,
               inform : inform,
-              currentTotalDistance: distance,
-              currentTotalTime: time,
-              boardCount: board,
-              features: features,
             },
           });
         })
@@ -102,11 +79,7 @@ function OptimalTransport() {
           `http://safe-roadmap-prod-env.eba-56tfx8tr.ap-northeast-2.elasticbeanstalk.com/pathfinding/pedestrain?startX=${startLon}&startY=${startLat}&endX=${endLon}&endY=${endLat}&startName=${startName}&endName=${endName}&type=${2}`
         )
         .then((response) => {
-          inform = response.data;
-          distance = response.data.result.currentTotalDistance;
-          time = response.data.result.currentTotalTime;
-          board = response.data.result.boardCount;
-          features = response.data.result.finalResult.features;
+          inform = response.data.result;
           navigate("/TransportMap", {
             state: {
               startLat: startLat,
@@ -115,10 +88,6 @@ function OptimalTransport() {
               endLon: endLon,
               type: 2,
               inform : inform,
-              currentTotalDistance: distance,
-              currentTotalTime: time,
-              boardCount: board,
-              features: features,
             },
           });
         })
@@ -136,11 +105,7 @@ function OptimalTransport() {
           `http://safe-roadmap-prod-env.eba-56tfx8tr.ap-northeast-2.elasticbeanstalk.com/pathfinding/pedestrain?startX=${startLon}&startY=${startLat}&endX=${endLon}&endY=${endLat}&startName=${startName}&endName=${endName}&type=${3}`
         )
         .then((response) => {
-          inform = response.data;
-          distance = response.data.result.currentTotalDistance;
-          time = response.data.result.currentTotalTime;
-          board = response.data.result.boardCount;
-          features = response.data.result.finalResult.features;
+          inform = response.data.result;
           navigate("/TransportMap", {
             state: {
               startLat: startLat,
@@ -149,10 +114,6 @@ function OptimalTransport() {
               endLon: endLon,
               type: 3,
               inform : inform,
-              currentTotalDistance: distance,
-              currentTotalTime: time,
-              boardCount: board,
-              features: features,
             },
           });
         })

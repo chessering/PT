@@ -55,7 +55,7 @@ function App() {
           <Route path="/WalkNavigation" element={<WalkNavigation />} />
           <Route path="/TTS" element={<TTS />} />
           <Route path="/TransportMap" element={<TransportMap/>} />
-          <Route path="/RouteSummary" element={<RouteSummary />} />
+          <Route path="/RouteSummary" element={<RouteSummary/>} />
         </Routes>
       </BrowserRouter>
     </div>

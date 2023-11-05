@@ -188,11 +188,17 @@ function TransportMap() {
   console.log(location.state);
   var drawInfoArr = [];
   var resultdrawArr = [];
-  const totalTime = (location.state.currentTotalTime / 60).toFixed(0);
-  const totalDistance = (location.state.currentTotalDistance / 1000).toFixed(1);
-  var totalTransit = 0;
-  const boardCount = location.state.boardCount;
-  const features = location.state.features;
+  const info = location.state.inform.info;
+  const totalTime = info.totalTime;
+  const totalDistance = (info.totalDistance / 1000).toFixed(1);
+  const totalTransit = info.busTransitCount + info.subwayTransitCount;
+  var boardCount = 0;
+
+  for (var p = 0; p < location.state.inform.ped.length; p++) {
+    if (location.state.inform.ped[p] == "") continue;
+    boardCount += location.state.inform.ped[p].boardCount;
+  }
+
 
   let clickCount1 = 0,
     clickCount2 = 0;
@@ -211,7 +217,13 @@ function TransportMap() {
     } else if (clickCount2 == 2) {
       TTS.testFun("안내를 시작합니다.");
       navigate("/RouteSummary", {
-        state: { features: features, inform: location.state.inform, info: location.state },
+        state: { 
+          SX : location.state.startLat, 
+          SY : location.state.startLon,
+          EX : location.state.endLat,
+          EY : location.state.endLon,
+          inform: location.state.inform, 
+          info: info },
       });
     }
   }
@@ -224,10 +236,6 @@ function TransportMap() {
       const SX = location.state.startLon;
       const EY = location.state.endLat;
       const EX = location.state.endLon;
-      const type = location.state.type;
-      const startName = location.state.startName;
-      const endName = location.state.endName;
-      console.log(SX, SY, EX, EY, startName, endName, type);
       var map = new Tmapv2.Map("map", {
         center: new Tmapv2.LatLng((SY + EY) / 2,(SX + EX) / 2),
         width: "340px",
@@ -252,9 +260,6 @@ function TransportMap() {
         for (var i = 0; i < keys.length; i++) {
           values_arr.push(values[keys[i]]);
         }
-        var info = values_arr[0];
-        console.log(info);
-        totalTransit = (info.totalStationCount + info.busTransitCount > 1) ? info.busTransitCount + info.subwayTransitCount : 0;
         
         if (response.status === 200) {
           
