@@ -11,7 +11,7 @@ function Intro2() {
     );
     setTimeout(function () {
       navigate("/Intro3");
-    }, 7000);
+    }, 9000);
   });
 
   return (

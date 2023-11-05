@@ -8,29 +8,30 @@ function Intro1() {
   //   audio.muted = true;
   //   audio.play();
   // });
-  useEffect(() => {
-    var AudioContext;
-    var audioContext;
-    function dd() {
-      navigator.mediaDevices
-        .getUserMedia({ audio: true })
-        .then(() => {
-          AudioContext = window.AudioContext || window.webkitAudioContext;
-          audioContext = new AudioContext();
-        })
-        .catch((e) => {
-          console.error(`Audio permissions denied: ${e}`);
-        });
-    }
-    dd();
+  var AudioContext;
+  var audioContext;
+  function permiss() {
+    navigator.mediaDevices
+      .getUserMedia({ audio: true })
+      .then(() => {
+        AudioContext = window.AudioContext || window.webkitAudioContext;
+        audioContext = new AudioContext();
+      })
+      .catch((e) => {
+        console.error(`Audio permissions denied: ${e}`);
+      });
+  }
+  permiss();
+
+  function Audio() {
     TTS.testFun("안녕하세요. 시각장애인을 위한 길안내 서비스 새로입니다.");
     setTimeout(function () {
       navigate("/Intro2");
-    }, 5000);
-  });
+    }, 7000);
+  }
   const navigate = useNavigate();
   return (
-    <div className="startPage">
+    <div className="startPage" onClick={Audio()}>
       <p
         style={{
           textAlign: "center",
