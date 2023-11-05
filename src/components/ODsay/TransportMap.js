@@ -86,22 +86,136 @@
 // export default DrawMap;
 
 
-import { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+// function DrawMap() {
+//     useEffect(() => {
+//         const mapOptions = {
+//           center: new navermaps.LatLng(37.3595704, 127.105399),
+//           zoom: 10,
+//         };
+    
+//         const map = new navermaps.Map('map', mapOptions);
+    
+//         const sx = 126.93737555322481;
+//         const sy = 37.55525165729346;
+//         const ex = 126.88265238619182;
+//         const ey = 37.481440035175375;
+    
+//         const searchPubTransPathAJAX = () => {
+//           const xhr = new XMLHttpRequest();
+//           const url = `https://api.odsay.com/v1/api/searchPubTransPathT?SX=${sx}&SY=${sy}&EX=${ex}&EY=${ey}&apiKey={YOUR_API_KEY}`;
+//           xhr.open('GET', url, true);
+//           xhr.send();
+//           xhr.onreadystatechange = function () {
+//             if (xhr.readyState === 4 && xhr.status === 200) {
+//               const response = JSON.parse(xhr.responseText);
+//               callMapObjApiAJAX(response.result.path[0].info.mapObj);
+//             }
+//           };
+//         };
+    
+//         const callMapObjApiAJAX = (mapObj) => {
+//           const xhr = new XMLHttpRequest();
+//           const url = `https://api.odsay.com/v1/api/loadLane?mapObject=0:0@${mapObj}&apiKey={YOUR_API_KEY}`;
+//           xhr.open('GET', url, true);
+//           xhr.send();
+//           xhr.onreadystatechange = function () {
+//             if (xhr.readyState === 4 && xhr.status === 200) {
+//               const resultJsonData = JSON.parse(xhr.responseText);
+//               drawNaverMarker(sx, sy);
+//               drawNaverMarker(ex, ey);
+//               drawNaverPolyLine(resultJsonData);
+//               if (resultJsonData.result.boundary) {
+//                 const boundary = new navermaps.LatLngBounds(
+//                   new navermaps.LatLng(resultJsonData.result.boundary.top, resultJsonData.result.boundary.left),
+//                   new navermaps.LatLng(resultJsonData.result.boundary.bottom, resultJsonData.result.boundary.right)
+//                 );
+//                 map.panToBounds(boundary);
+//               }
+//             }
+//           };
+//         };
+    
+//         const drawNaverMarker = (x, y) => {
+//           new navermaps.Marker({
+//             position: new navermaps.LatLng(y, x),
+//             map,
+//           });
+//         };
+    
+//         const drawNaverPolyLine = (data) => {
+//           for (let i = 0; i < data.result.lane.length; i++) {
+//             for (let j = 0; j < data.result.lane[i].section.length; j++) {
+//               const lineArray = data.result.lane[i].section[j].graphPos.map(pos => new navermaps.LatLng(pos.y, pos.x));
+//               const strokeColor = (data.result.lane[i].type === 1) ? '#003499' : (data.result.lane[i].type === 2) ? '#37b42d' : '';
+              
+//               new navermaps.Polyline({
+//                 map,
+//                 path: lineArray,
+//                 strokeWeight: 3,
+//                 strokeColor,
+//               });
+//             }
+//           }
+//         };
+    
+//         searchPubTransPathAJAX();
+//       }, []);
+    
+//       return (
+//         <div>
+//           <div id="map" style={{ width: '100%', height: '400px' }}></div>
+//         </div>
+//       );
+//     }
+
+    
+
+
+// export default DrawMap;
+
+
+import React, { useEffect, useState } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
 import $ from "jquery";
 import "../NavigateContent.css";
+import * as TTS from "../../pages/TTS";
 /*global Tmapv2 */
 
 function TransportMap() {
   const location = useLocation();
+  const navigate = useNavigate();
   console.log(location.state);
   var drawInfoArr = [];
   var resultdrawArr = [];
-  const [totalTime, setTotalTime] = useState();
-  const [totalDistance, setTotalDistance] = useState();
-  const [totaltransit, setTotaltransit] = useState();
-  const [board, setboard] = useState();
+  const totalTime = (location.state.currentTotalTime / 60).toFixed(0);
+  const totalDistance = (location.state.currentTotalDistance / 1000).toFixed(1);
+  var totalTransit = 0;
+  const boardCount = location.state.boardCount;
+  const features = location.state.features;
+
+  let clickCount1 = 0,
+    clickCount2 = 0;
+  function handleClickCountEvent1() {
+    clickCount1 = clickCount1 + 1;
+    if (clickCount1 == 1) {
+      TTS.testFun("초기화면으로 돌아가는 버튼입니다.");
+    } else if (clickCount1 == 2) {
+      navigate("/FindRoute");
+    }
+  }
+  function handleClickCountEvent2() {
+    clickCount2 = clickCount2 + 1;
+    if (clickCount2 == 1) {
+      TTS.testFun("안내 시작 버튼입니다.");
+    } else if (clickCount2 == 2) {
+      TTS.testFun("안내를 시작합니다.");
+      navigate("/RouteSummary", {
+        state: { features: features, info: location.state, totalTime:totalTime },
+      });
+    }
+  }
+  
 
   useEffect(() => {
     const searchPubTransPathAxios = async () => {
@@ -116,33 +230,42 @@ function TransportMap() {
       console.log(SX, SY, EX, EY, startName, endName, type);
       var map = new Tmapv2.Map("map", {
         center: new Tmapv2.LatLng((SY + EY) / 2,(SX + EX) / 2),
-        width: "390px",
-        height: "400px",
-        zoom: 11,
+        width: "340px",
+        height: "430px",
+        zoom: 13,
         zoomControl: true,
         scrollwheel: true,
       });
       
 
       try {
-        const response = await axios.get(`http://safe-roadmap-prod-env.eba-56tfx8tr.ap-northeast-2.elasticbeanstalk.com/pathfinding/transport?SX=${SX}&SY=${SY}&EX=${EX}&EY=${EY}&type=${type}&SName=${startName}&EName=${endName}`);
-        const data = response.data;  
-        var info = data.result.info;
+        // const response = await axios.get(`http://safe-roadmap-prod-env.eba-56tfx8tr.ap-northeast-2.elasticbeanstalk.com/pathfinding/transport?SX=${SX}&SY=${SY}&EX=${EX}&EY=${EY}&type=${type}&SName=${startName}&EName=${endName}`);
+        const response = await axios.get(`https://api.odsay.com/v1/api/searchPubTransPathT?SX=${SX}&SY=${SY}&EX=${EX}&EY=${EY}&apiKey=P7e7V2R2hHX%2BPv4%2BFlgsfHHJ5FvnKvJ%2FER5h0qInTgw`);
+        const data = response.data;
+        console.log(data);
+        var path = data.result.path;
+        var keys = Object.keys(path);
+        var values = Object.values(path);
+        var keys_arr = [];
+        var values_arr = [];
+        keys.sort();
+        for (var i = 0; i < keys.length; i++) {
+          values_arr.push(values[keys[i]]);
+        }
+        var info = values_arr[0];
         console.log(info);
-        setTotalTime(info.totalTime);
-        setTotalDistance(info.totalDistance);
-        setTotaltransit((info.totalStationCount > 1) ? info.busTransitCount + info.subwayTransitCount : 0);
+        totalTransit = (info.totalStationCount + info.busTransitCount > 1) ? info.busTransitCount + info.subwayTransitCount : 0;
+        console.log(totalTime, totalDistance, totalTransit);
+        
         var ped = data.result.ped;
         var boardcount = 0;
         for (var p in ped) {
           if (ped[p].boardCount !== undefined)
           boardcount += ped[p].boardCount;
         }
-        setboard(boardcount);
         
         if (response.status === 200) {
           
-
           // 결과 데이터를 출력
           const startPoint = {
             x: SX,
@@ -179,7 +302,7 @@ function TransportMap() {
           drawInfoArr = [];
           
 
-          var subPath = data.result.subPath;
+          var subPath = info.subPath;
 
           for (var key in subPath) {
             var x = "";
@@ -299,6 +422,7 @@ function TransportMap() {
           className="Map"
           id="map"
           style={{
+            width: "350px",
             borderRadius: "23px",
             position: "fixed",
           }}
@@ -307,15 +431,15 @@ function TransportMap() {
       <div className="footer">
         <div className="Informations">
           예상 시간 &emsp; &emsp; &nbsp;&nbsp;{ totalTime } 분
-          <br />총 거리 &emsp; &emsp; &emsp; &nbsp;{totalDistance} m
-          <br />환승 수 &emsp; &emsp; &emsp; &nbsp;{totaltransit} 번
+          <br />총 거리 &emsp; &emsp; &emsp; &nbsp;{totalDistance} km
+          <br />환승 수 &emsp; &emsp; &emsp; &nbsp;{totalTransit} 번
           <br />
-          횡단보도 수 &emsp; &nbsp; &nbsp; {board} 개
+          횡단보도 수 &emsp; &nbsp; {boardCount} 개
           <br />
         </div>
         <div className="Buttons">
-          <button className="StartBtn">첫 화면으로</button>
-          <button className="NavigateStartBtn">안내 시작</button>
+          <button className="StartBtn" onClick={() => handleClickCountEvent1()}>첫 화면으로</button>
+          <button className="NavigateStartBtn" onClick = {() => handleClickCountEvent2()}>안내 시작</button>
         </div>
       </div>
     </div>
