@@ -18,9 +18,9 @@ function OptimalTransport() {
   let clickCount1 = 0;
   function handleClickCountEvent1() {
     clickCount1 = clickCount1 + 1;
-    if (clickCount1 == 1) {
+    if (clickCount1 === 1) {
       TTS.testFun("최소 시간 길 찾기 버튼입니다.");
-    } else if (clickCount1 == 2) {
+    } else if (clickCount1 === 2) {
       axios
         .get(
           `http://safe-roadmap-prod-env.eba-56tfx8tr.ap-northeast-2.elasticbeanstalk.com/pathfinding/transport?SX=${startLon}&SY=${startLat}&EX=${endLon}&EY=${endLat}&type=${0}`
@@ -42,6 +42,7 @@ function OptimalTransport() {
         .catch((error) => console.log(error));
     }
   }
+  
   let clickCount2 = 0;
   function handleClickCountEvent2() {
     clickCount2 = clickCount2 + 1;
@@ -50,7 +51,7 @@ function OptimalTransport() {
     } else if (clickCount2 == 2) {
       axios
         .get(
-          `http://safe-roadmap-prod-env.eba-56tfx8tr.ap-northeast-2.elasticbeanstalk.com/pathfinding/pedestrain?startX=${startLon}&startY=${startLat}&endX=${endLon}&endY=${endLat}&startName=${startName}&endName=${endName}&type=${1}`
+          `http://safe-roadmap-prod-env.eba-56tfx8tr.ap-northeast-2.elasticbeanstalk.com/pathfinding/transport?SX=${startLon}&SY=${startLat}&EX=${endLon}&EY=${endLat}&type=${1}`
         )
         .then((response) => {
           inform = response.data.result;
@@ -76,7 +77,7 @@ function OptimalTransport() {
     } else if (clickCount3 == 2) {
       axios
         .get(
-          `http://safe-roadmap-prod-env.eba-56tfx8tr.ap-northeast-2.elasticbeanstalk.com/pathfinding/pedestrain?startX=${startLon}&startY=${startLat}&endX=${endLon}&endY=${endLat}&startName=${startName}&endName=${endName}&type=${2}`
+          `http://safe-roadmap-prod-env.eba-56tfx8tr.ap-northeast-2.elasticbeanstalk.com/pathfinding/transport?SX=${startLon}&SY=${startLat}&EX=${endLon}&EY=${endLat}&type=${2}`
         )
         .then((response) => {
           inform = response.data.result;
@@ -102,7 +103,7 @@ function OptimalTransport() {
     } else if (clickCount4 == 2) {
       axios
         .get(
-          `http://safe-roadmap-prod-env.eba-56tfx8tr.ap-northeast-2.elasticbeanstalk.com/pathfinding/pedestrain?startX=${startLon}&startY=${startLat}&endX=${endLon}&endY=${endLat}&startName=${startName}&endName=${endName}&type=${3}`
+          `http://safe-roadmap-prod-env.eba-56tfx8tr.ap-northeast-2.elasticbeanstalk.com/pathfinding/transport?SX=${startLon}&SY=${startLat}&EX=${endLon}&EY=${endLat}&type=${3}`
         )
         .then((response) => {
           inform = response.data.result;
