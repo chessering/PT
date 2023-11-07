@@ -36,7 +36,7 @@ function StartCheck() {
           />
         </svg>
         <div className="Place">
-          <div>{startName}</div>
+          <div className="Text">{startName}</div>
         </div>
       </div>
 

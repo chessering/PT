@@ -14,6 +14,7 @@ function OptimalTransport() {
   const startLon = location.state.startLon;
   const endLat = location.state.endLat;
   const endLon = location.state.endLon;
+  console.log(location.state);
 
   let clickCount1 = 0;
   function handleClickCountEvent1() {
@@ -21,25 +22,26 @@ function OptimalTransport() {
     if (clickCount1 === 1) {
       TTS.testFun("최소 시간 길 찾기 버튼입니다.");
     } else if (clickCount1 === 2) {
-      axios
-        .get(
-          `http://safe-roadmap-prod-env.eba-56tfx8tr.ap-northeast-2.elasticbeanstalk.com/pathfinding/transport?SX=${startLon}&SY=${startLat}&EX=${endLon}&EY=${endLat}&type=${0}`
-        )
-        .then((response) => {
-          inform = response.data.result;
-          console.log(inform);
-          navigate("/TransportMap", {
-            state: {
-              startLat: startLat,
-              startLon: startLon,
-              endLat: endLat,
-              endLon: endLon,
-              type: 0,
-              inform: inform,
-            },
-          });
-        })
-        .catch((error) => console.log(error));
+      // axios
+      //   .get(
+      //     `https://safe-roadmap.shop/pathfinding/transport?SX=${startLon}&SY=${startLat}&EX=${endLon}&EY=${endLat}&type=${0}&SName=${startName}&EName${endName}`
+      //   )
+      //   .then((response) => {
+      //     inform = response.data.result;
+      //     console.log(inform);
+      //     navigate("/RouteP1", {
+      //       state: {
+      //         startLat: startLat,
+      //         startLon: startLon,
+      //         endLat: endLat,
+      //         endLon: endLon,
+      //         type: 1,
+      //         inform : inform,
+      //       },
+      //     });
+      //   })
+      //   .catch((error) => console.log(error));
+      navigate('/RouteP1');
     }
   }
   
@@ -49,24 +51,25 @@ function OptimalTransport() {
     if (clickCount2 == 1) {
       TTS.testFun("최소 환승 길 찾기 버튼입니다.");
     } else if (clickCount2 == 2) {
-      axios
-        .get(
-          `http://safe-roadmap-prod-env.eba-56tfx8tr.ap-northeast-2.elasticbeanstalk.com/pathfinding/transport?SX=${startLon}&SY=${startLat}&EX=${endLon}&EY=${endLat}&type=${1}`
-        )
-        .then((response) => {
-          inform = response.data.result;
-          navigate("/TransportMap", {
-            state: {
-              startLat: startLat,
-              startLon: startLon,
-              endLat: endLat,
-              endLon: endLon,
-              type: 1,
-              inform : inform,
-            },
-          });
-        })
-        .catch((error) => console.log(error));
+      // axios
+      //   .get(
+      //     `https://safe-roadmap.shop/pathfinding/transport?SX=${startLon}&SY=${startLat}&EX=${endLon}&EY=${endLat}&type=${1}&SName=%EC%B6%9C%EB%B0%9C&EName=%EB%8F%84%EC%B0%A9`
+      //   )
+      //   .then((response) => {
+      //     inform = response.data.result;
+      //     navigate("/RouteP1", {
+      //       state: {
+      //         startLat: startLat,
+      //         startLon: startLon,
+      //         endLat: endLat,
+      //         endLon: endLon,
+      //         type: 1,
+      //         inform : inform,
+      //       },
+      //     });
+      //   })
+      //   .catch((error) => console.log(error));
+      navigate('/RouteP1');
     }
   }
   let clickCount3 = 0;
@@ -75,24 +78,25 @@ function OptimalTransport() {
     if (clickCount3 == 1) {
       TTS.testFun("안전 우선 길 찾기 버튼입니다.");
     } else if (clickCount3 == 2) {
-      axios
-        .get(
-          `http://safe-roadmap-prod-env.eba-56tfx8tr.ap-northeast-2.elasticbeanstalk.com/pathfinding/transport?SX=${startLon}&SY=${startLat}&EX=${endLon}&EY=${endLat}&type=${2}`
-        )
-        .then((response) => {
-          inform = response.data.result;
-          navigate("/TransportMap", {
-            state: {
-              startLat: startLat,
-              startLon: startLon,
-              endLat: endLat,
-              endLon: endLon,
-              type: 2,
-              inform : inform,
-            },
-          });
-        })
-        .catch((error) => console.log(error));
+      // axios
+      //   .get(
+      //     `https://safe-roadmap.shop/pathfinding/transport?SX=${startLon}&SY=${startLat}&EX=${endLon}&EY=${endLat}&type=${2}&SName=%EC%B6%9C%EB%B0%9C&EName=%EB%8F%84%EC%B0%A9`
+      //   )
+      //   .then((response) => {
+      //     inform = response.data.result;
+      //     navigate("/RouteP1", {
+      //       state: {
+      //         startLat: startLat,
+      //         startLon: startLon,
+      //         endLat: endLat,
+      //         endLon: endLon,
+      //         type: 2,
+      //         inform : inform,
+      //       },
+      //     });
+      //   })
+      //   .catch((error) => console.log(error));
+      navigate('/RouteP1');
     }
   }
   let clickCount4 = 0;
@@ -101,24 +105,25 @@ function OptimalTransport() {
     if (clickCount4 == 1) {
       TTS.testFun("최소 도보 길 찾기 버튼입니다.");
     } else if (clickCount4 == 2) {
-      axios
-        .get(
-          `http://safe-roadmap-prod-env.eba-56tfx8tr.ap-northeast-2.elasticbeanstalk.com/pathfinding/transport?SX=${startLon}&SY=${startLat}&EX=${endLon}&EY=${endLat}&type=${3}`
-        )
-        .then((response) => {
-          inform = response.data.result;
-          navigate("/TransportMap", {
-            state: {
-              startLat: startLat,
-              startLon: startLon,
-              endLat: endLat,
-              endLon: endLon,
-              type: 3,
-              inform : inform,
-            },
-          });
-        })
-        .catch((error) => console.log(error));
+      // axios
+      //   .get(
+      //     `https://safe-roadmap.shop/pathfinding/transport?SX=${startLon}&SY=${startLat}&EX=${endLon}&EY=${endLat}&type=${3}&SName=%EC%B6%9C%EB%B0%9C&EName=%EB%8F%84%EC%B0%A9`
+      //   )
+      //   .then((response) => {
+      //     inform = response.data.result;
+      //     navigate("/RouteP1", {
+      //       state: {
+      //         startLat: startLat,
+      //         startLon: startLon,
+      //         endLat: endLat,
+      //         endLon: endLon,
+      //         type: 3,
+      //         inform : inform,
+      //       },
+      //     });
+      //   })
+      //   .catch((error) => console.log(error));
+      navigate('/RouteP1');
     }
   }
 

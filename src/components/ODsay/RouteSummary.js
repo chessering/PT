@@ -18,17 +18,21 @@ function RouteSummary() {
     const EX = location.state.EX;
     const EY = location.state.EY;
     const subPath = location.state.inform.subPath;
+    const inform = location.state.inform;
     const totalTime = location.state.info.totalTime;
     console.log(SX);
 
-    let clickCount1 = 0,
-    clickCount2 = 0;
+    let clickCount1 = 0;
     function handleClickCountEvent1() {
         clickCount1 = clickCount1 + 1;
         if (clickCount1 == 1) {
-        TTS.testFun("초기화면으로 돌아가는 버튼입니다.");
+        TTS.testFun("상세 경로안내 시작 버튼입니다.");
         } else if (clickCount1 == 2) {
-        navigate("/FindRoute");
+        navigate("/RouteP1", {
+            state: {
+                inform : inform
+            }
+        });
         }
     }
 
@@ -54,6 +58,7 @@ function RouteSummary() {
                 }
             }
         }
+        console.log(subPathList[0].sectionTime);
 
         setPath(path);
         setSubPathList(subPathList);
@@ -184,7 +189,7 @@ function RouteSummary() {
                 />
                 </svg>
             </button>
-            <button className="StartBtn">
+            <button className="StartBtn" onClick= {() => {handleClickCountEvent1()}}>
                 <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100" fill="none">
                 <rect width="100" height="100" rx="23" fill="#172A46"/>
                 <path d="M72.2349 44.4694C75.9217 47.5049 75.9217 52.4951 72.2349 55.5306L47.6475 75.7745C41.8205 80.572 32 77.101 32 70.2438L32 29.7562C32 22.8991 41.8205 19.428 47.6475 24.2255L72.2349 44.4694Z" stroke="white" strokeWidth="10"/>

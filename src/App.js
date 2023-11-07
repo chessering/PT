@@ -25,6 +25,16 @@ import WalkNavigation from "./pages/WalkNavigation";
 import TTS from "./pages/TTS";
 import TransportMap from "./components/ODsay/TransportMap";
 import RouteSummary from "./components/ODsay/RouteSummary";
+import RouteP1 from "./components/ODsay/RouteP1";
+import RouteP2 from "./components/ODsay/RouteP2";
+import RouteP3 from "./components/ODsay/RouteP3";
+import RouteP4 from "./components/ODsay/RouteP4";
+import NavigateEnd from "./pages/NavigateEnd";
+import TransportNavigateEnd from "./components/ODsay/TransportNavigateEnd";
+import BrailleBlockCaution from "./pages/BrailleBlockCaution";
+import LoadingPage from "./pages/LoadingPage";
+import PhotoOrReport from "./pages/PhotoOrReport";
+import AdditionalReport from "./pages/AdditionalReport";
 
 function App() {
   return (
@@ -56,6 +66,16 @@ function App() {
           <Route path="/TTS" element={<TTS />} />
           <Route path="/TransportMap" element={<TransportMap/>} />
           <Route path="/RouteSummary" element={<RouteSummary/>} />
+          <Route path="/RouteP1" element={<RouteP1/>} />
+          <Route path="/RouteP2" element={<RouteP2/>} />
+          <Route path="/RouteP3" element={<RouteP3/>} />
+          <Route path="/RouteP4" element={<RouteP4/>} />
+          <Route path="/NavigateEnd" element={<NavigateEnd/>} />
+          <Route path="/TransportNavigateEnd" element={<TransportNavigateEnd/>} />
+          <Route path="/LoadingPage" element={<LoadingPage />} />
+          <Route path="/BrailleBlockCaution" element={<BrailleBlockCaution />}/>
+          <Route path="/PhotoOrReport" element={<PhotoOrReport />} />
+          <Route path="/AdditionalReport" element={<AdditionalReport/>} />
         </Routes>
       </BrowserRouter>
     </div>

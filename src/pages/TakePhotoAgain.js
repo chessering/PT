@@ -5,23 +5,32 @@ import "../components/Report.css";
 function TakePhotoAgain() {
 
     const navigate = useNavigate();
-    const handleImageSelect = (e) => {
-      const file = e.target.files[0];
-      if (file) {
-        const reader = new FileReader();
-        reader.onload = (event) => {
-          const imageUrl = event.target.result;
-          console.log("선택된 이미지 URL: ", imageUrl);
-          // 이제 imageUrl을 상태나 컴포넌트의 데이터에 저장하거나 활용할 수 있습니다.
-        };
-        reader.readAsDataURL(file);
-      }
-    };
+
+    let clickCount1 = 0,
+    clickCount2 = 0;
+  function handleClickCountEvent1() {
+    clickCount1 = clickCount1 + 1;
+    if (clickCount1 == 1) {
+      TTS.testFun("사진 다시 찍기 버튼입니다.");
+    } else if (clickCount1 == 2) {
+      navigate("/Report");
+    }
+  }
+
+  function handleClickCountEvent2() {
+    clickCount2 = clickCount2 + 1;
+    if (clickCount2 == 1) {
+      TTS.testFun("지도로 이동하는 버튼입니다.");
+    }
+    else if (clickCount2 == 2) {
+      navigate("/ChooseInput");
+    }
+  }
     return (
       <div className="Report">
         <div className="Buttons">
-          <button className="Camera">
-            <label htmlFor="file">
+          <button className="Camera" onClick={handleClickCountEvent1()}>
+            <div>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="150"
@@ -43,20 +52,9 @@ function TakePhotoAgain() {
                 />
               </svg>
               <div className="btn-upload">사진 다시 찍기</div>
-            </label>
-            <input
-              type="file"
-              name="file"
-              id="file"
-              capture="camera"
-              onChange={(e) => {
-                handleImageSelect(e);
-                navigate("/ReportComplete");
-              }}
-              style={{ display: "none" }}
-            />
+            </div>
           </button>
-          <button className="Gallery" onClick={() => navigate("/ChooseInput")}>
+          <button className="Gallery" onClick={handleClickCountEvent2()}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="150"

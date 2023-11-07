@@ -1,27 +1,38 @@
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 import "../components/LoadingPage.css"
+import * as TTS from "../pages/TTS";
 
 function LoadingPage() {
 
     const location = useLocation();
     const navigate = useNavigate();
     console.log(location.state);
-    const id = location.state.id;
-    const stat = location.state.stat;
-    console.log(id);
-    console.log(stat);
+    const name = location.state.name;
+    const photoId = location.state.photoId;
+    console.log(name);
+    console.log(photoId);
+
 
     useEffect(() => {
-      const timeout = () => {
-        setTimeout(() => {
-          navigate('/BrailleBlockCaution');
-        }, 2000);
-      };
-      timeout();
-      return () => {
-        clearTimeout(timeout);
+      var AudioContext;
+      var audioContext;
+      async function dd() {
+        navigator.mediaDevices
+          .getUserMedia({ audio: true })
+          .then(() => {
+            AudioContext = window.AudioContext || window.webkitAudioContext;
+            audioContext = new AudioContext();
+          })
+          .catch((e) => {
+            console.error(`Audio permissions denied: ${e}`);
+          });
       }
+      dd();
+      TTS.testFun("사진을 분석 중입니다. 잠시만 기다려주세요.");
+      setTimeout(function () {
+        navigate("/BrailleBlockCaution");
+      }, 9000);
     }, []);
     
     

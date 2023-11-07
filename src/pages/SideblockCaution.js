@@ -1,6 +1,31 @@
 import "../components/Caution.css";
+import * as TTS from "./TTS";
 
 function SideblockCaution() {
+
+    useEffect(() => {
+        var AudioContext;
+        var audioContext;
+        function dd() {
+          navigator.mediaDevices
+            .getUserMedia({ audio: true })
+            .then(() => {
+              AudioContext = window.AudioContext || window.webkitAudioContext;
+              audioContext = new AudioContext();
+            })
+            .catch((e) => {
+              console.error(`Audio permissions denied: ${e}`);
+            });
+        }
+        dd();
+        TTS.testFun("보도블록이 파손되었습니다");
+        setTimeout(function () {
+          navigate("/TakePhotoAgain");
+        }, 3000);
+      }, []);
+
+
+    
     return(
         <div className="Caution">
             <div className="CautionBtn">

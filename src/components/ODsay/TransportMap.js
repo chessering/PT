@@ -193,6 +193,9 @@ function TransportMap() {
   const totalDistance = (info.totalDistance / 1000).toFixed(1);
   const totalTransit = info.busTransitCount + info.subwayTransitCount;
   var boardCount = 0;
+  console.log(location.state);
+  console.log(location.state.inform);
+  console.log(location.state.inform.info);
 
   for (var p = 0; p < location.state.inform.ped.length; p++) {
     if (location.state.inform.ped[p] == "") continue;
@@ -216,7 +219,7 @@ function TransportMap() {
       TTS.testFun("안내 시작 버튼입니다.");
     } else if (clickCount2 == 2) {
       TTS.testFun("안내를 시작합니다.");
-      navigate("/RouteSummary", {
+      navigate("/RouteP1", {
         state: { 
           SX : location.state.startLat, 
           SY : location.state.startLon,
@@ -236,11 +239,12 @@ function TransportMap() {
       const SX = location.state.startLon;
       const EY = location.state.endLat;
       const EX = location.state.endLon;
+      console.log(SY, SX, EY, EX)
       var map = new Tmapv2.Map("map", {
         center: new Tmapv2.LatLng((SY + EY) / 2,(SX + EX) / 2),
         width: "340px",
         height: "430px",
-        zoom: 13,
+        zoom: 12,
         zoomControl: true,
         scrollwheel: true,
       });
@@ -299,7 +303,8 @@ function TransportMap() {
           drawInfoArr = [];
           
 
-          var subPath = info.subPath;
+          var subPath = location.state.inform.subPath;
+          console.log(subPath);
 
           for (var key in subPath) {
             var x = "";

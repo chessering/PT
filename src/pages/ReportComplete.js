@@ -1,20 +1,30 @@
 import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 import "../components/ReportComplete.css";
+import * as TTS from "./TTS";
 function ReportComplete() {
   const navigate = useNavigate();
 
-  const timeout = () => {
-		setTimeout(() => {
-			navigate('/AdditionalReport');
-		}, 2000);
-	};
-	useEffect(() => {
-		timeout();
-		return () => {
-			clearTimeout(timeout);
-		};
-	}); 
+  useEffect(() => {
+    var AudioContext;
+    var audioContext;
+    function dd() {
+      navigator.mediaDevices
+        .getUserMedia({ audio: true })
+        .then(() => {
+          AudioContext = window.AudioContext || window.webkitAudioContext;
+          audioContext = new AudioContext();
+        })
+        .catch((e) => {
+          console.error(`Audio permissions denied: ${e}`);
+        });
+    }
+    dd();
+    TTS.testFun("신고가 접수되었습니다. 감사합니다.");
+    setTimeout(function () {
+      navigate("/AdditionalReport");
+    }, 6000);
+  }, []); 
 
 
   return (

@@ -36,7 +36,7 @@ function DestCheck() {
         </svg>
 
         <div className="Place">
-          <div>{endName}</div>
+          <div className="Text">{endName}</div>
         </div>
       </div>
 

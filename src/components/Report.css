@@ -1,9 +1,11 @@
 .Report {
   display: flex;
   flex-direction: column;
-  width: 390px;
-  height: 844px;
+  width: 430px;
+  height: 896px;
   text-align: center;
+  padding: 5%;
+  justify-content: flex-start;
 
   background: #09182e;
 }
@@ -12,6 +14,7 @@
         태블릿*/
   .Report {
     width: 800px;
+    margin : 0 auto;
   }
 }
 @media all and (max-width: 768px) {
@@ -37,7 +40,7 @@
 }
 
 .Report .Buttons {
-  margin-top: 70px;
+  margin : 70px 0px 0px 0px;
 }
 .Report .Buttons .Camera {
   width: 314px;
@@ -46,7 +49,6 @@
   border-radius: 23px;
   border-color: #ffffff;
   background: #ffffff;
-  margin-left: 20px;
 
   color: #fc6565;
   text-align: center;

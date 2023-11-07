@@ -1,6 +1,8 @@
 import "../components/page.css";
+import { useNavigate } from 'react-router-dom';
 
 function NavigateEnd() {
+  const navigate = useNavigate();
   return (
     <div className="EndPage" onClick={() => navigate("/FindRoute")}>
           <p style={{
@@ -15,3 +17,5 @@ function NavigateEnd() {
     </div>
   );
 }
+
+export default NavigateEnd;

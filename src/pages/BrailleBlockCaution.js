@@ -1,21 +1,43 @@
 import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import "../components/Caution.css";
+import * as TTS from "./TTS";
 
 function BrailleBlockCaution() {
 
     const navigate = useNavigate();
 
-    const timeout = () => {
-        setTimeout(() => {
-            navigate('/PhotoOrReport');
-        }, 2000);
-    }
+    // const timeout = () => {
+    //     setTimeout(() => {
+    //         navigate('/PhotoOrReport');
+    //     }, 2000);
+    // }
+    // useEffect(() => {
+    //     return () => {
+    //         clearTimeout(timeout);
+    //       }
+    // },[]);
+
     useEffect(() => {
-        return () => {
-            clearTimeout(timeout);
-          }
-    },[]);
+        var AudioContext;
+        var audioContext;
+        function dd() {
+          navigator.mediaDevices
+            .getUserMedia({ audio: true })
+            .then(() => {
+              AudioContext = window.AudioContext || window.webkitAudioContext;
+              audioContext = new AudioContext();
+            })
+            .catch((e) => {
+              console.error(`Audio permissions denied: ${e}`);
+            });
+        }
+        dd();
+        TTS.testFun("점자블록이 파손되었습니다");
+        setTimeout(function () {
+          navigate("/PhotoOrReport");
+        }, 5000);
+      }, []);
 
 
     return(
